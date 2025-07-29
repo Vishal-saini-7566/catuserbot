@@ -416,61 +416,62 @@ async def inline_handler(event):
     result = None
     query = event.text
     string = query.lower()
-    query.split(" ", 2)
     str_y = query.split(" ", 1)
-    string.split()
     query_user_id = event.query.user_id
-    if query_user_id == Config.OWNER_ID or query_user_id in Config.SUDO_USERS:
-        hmm = re.compile("troll (.*) (.*)")
-        match = re.findall(hmm, query)
-        inf = re.compile("secret (.*) (.*)")
-        match2 = re.findall(inf, query)
-        hid = re.compile("hide (.*)")
-        match3 = re.findall(hid, query)
-        if string == "ialive":
-            result = await article_builder(event, string)
-            await event.answer([result] if result else None)
-        elif str_y[0].lower() == "ls":
-            result = await filemanager_article(event)
-            await event.answer([result] if result else None)
-        elif query.startswith("Inline buttons"):
-            result = await article_builder(event, query)
-            await event.answer([result] if result else None)
-        elif match or match2 or match3:
-            result, old_msg, jsondata, new_msg = await hide_troll_secret(event, query, match, match3)
-            await event.answer([result] if result else None)
-            if jsondata:
-                jsondata.update(new_msg)
-                json.dump(jsondata, open(old_msg, "w"))
-            else:
-                json.dump(new_msg, open(old_msg, "w"))
-        elif string == "help":
-            result = await help_article(event)
-            await event.answer([result] if result else None)
-        elif string == "spotify":
-            result = await article_builder(event, string)
-            await event.answer([result] if result else None)
-        elif string == "vcplayer":
-            result = await vcplayer_article(event)
-            await event.answer([result] if result else None)
-        elif str_y[0].lower() == "s" and len(str_y) == 2:
-            result = await inline_search(event, str_y[1].strip())
-            await event.answer(result or None)
-        elif str_y[0].lower() == "ytdl" and len(str_y) == 2:
-            result = await youtube_data_article(event, str_y)
-            await event.answer([result] if result else None)
-        elif string == "age_verification_alert":
-            result = await age_verification_article(event)
-            await event.answer([result] if result else None)
-        elif string == "pmpermit":
-            result = await pmpermit_article(event)
-            await event.answer([result] if result else None)
-        elif string == "":
-            results = await inline_popup_info(event, builder)
-            await event.answer(results)
-    else:
+
+    if query_user_id != Config.OWNER_ID or query_user_id not in Config.SUDO_USERS:
         result = await deploy_article(event)
         await event.answer([result] if result else None)
+        return
+
+    hmm = re.compile("troll (.*) (.*)")
+    match = re.findall(hmm, query)
+    inf = re.compile("secret (.*) (.*)")
+    match2 = re.findall(inf, query)
+    hid = re.compile("hide (.*)")
+    match3 = re.findall(hid, query)
+
+    if string == "ialive":
+        result = await article_builder(event, string)
+        await event.answer([result] if result else None)
+    elif str_y[0].lower() == "ls":
+        result = await filemanager_article(event)
+        await event.answer([result] if result else None)
+    elif query.startswith("Inline buttons"):
+        result = await article_builder(event, query)
+        await event.answer([result] if result else None)
+    elif match or match2 or match3:
+        result, old_msg, jsondata, new_msg = await hide_troll_secret(event, query, match, match3)
+        await event.answer([result] if result else None)
+        if jsondata:
+            jsondata.update(new_msg)
+            json.dump(jsondata, open(old_msg, "w"))
+        else:
+            json.dump(new_msg, open(old_msg, "w"))
+    elif string == "help":
+        result = await help_article(event)
+        await event.answer([result] if result else None)
+    elif string == "spotify":
+        result = await article_builder(event, string)
+        await event.answer([result] if result else None)
+    elif string == "vcplayer":
+        result = await vcplayer_article(event)
+        await event.answer([result] if result else None)
+    elif str_y[0].lower() == "s" and len(str_y) == 2:
+        result = await inline_search(event, str_y[1].strip())
+        await event.answer(result or None)
+    elif str_y[0].lower() == "ytdl" and len(str_y) == 2:
+        result = await youtube_data_article(event, str_y)
+        await event.answer([result] if result else None)
+    elif string == "age_verification_alert":
+        result = await age_verification_article(event)
+        await event.answer([result] if result else None)
+    elif string == "pmpermit":
+        result = await pmpermit_article(event)
+        await event.answer([result] if result else None)
+    elif string == "":
+        results = await inline_popup_info(event, builder)
+        await event.answer(results)
 
 
 async def youtube_data_article(event, str_y):
@@ -496,7 +497,7 @@ async def youtube_data_article(event, str_y):
                 ),
                 Button.inline(
                     "⬇️  Download",
-                    data=f'ytdl_download_{outdata[1]["video_id"]}_0',
+                    data=f"ytdl_download_{outdata[1]['video_id']}_0",
                 ),
             ]
             caption = outdata[1]["message"]

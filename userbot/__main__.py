@@ -39,14 +39,6 @@ except Exception as e:
     sys.exit()
 
 
-def run_flask():
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
-
-
-threading.Thread(target=run_flask).start()
-
-
 async def startup_process():
     await verifyLoggerGroup()
     await load_plugins("plugins")
@@ -81,6 +73,14 @@ async def externalrepo():
 catub.loop.run_until_complete(startup_process())
 
 catub.loop.run_until_complete(externalrepo())
+
+
+def run_flask():
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
+
+threading.Thread(target=run_flask).start()
 
 if len(sys.argv) in {1, 3, 4}:
     with contextlib.suppress(ConnectionError):

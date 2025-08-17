@@ -1,11 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Special credits:
 # https://github.com/Total-Noob-69/X-tra-Telegram/blob/master/userbot/plugins/webupload.py
 
@@ -59,7 +51,7 @@ async def labstack(event):
     }
     r2 = requests.post("https://up.labstack.com/api/v1/links", json=files2, headers=headers2)
     r2json = json.loads(r2.text)
-    url = f'https://up.labstack.com/api/v1/links/{r2json["code"]}/send'
+    url = f"https://up.labstack.com/api/v1/links/{r2json['code']}/send"
     max_days = 7
     command_to_exec = [
         "curl",
@@ -79,7 +71,7 @@ async def labstack(event):
         return await editor.edit(exc.output.decode("UTF-8"))
     else:
         LOGS.info(t_response)
-        t_response_arry = f'https://up.labstack.com/api/v1/links/{r2json["code"]}/receive'
+        t_response_arry = f"https://up.labstack.com/api/v1/links/{r2json['code']}/receive"
     await editor.edit(t_response_arry + "\nMax Days:" + str(max_days), link_preview=False)
 
 

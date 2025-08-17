@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import os
 from asyncio.exceptions import CancelledError
 from time import sleep
@@ -35,7 +26,7 @@ plugin_category = "tools"
 async def _(event):
     "Restarts the bot !!"
     if BOTLOG:
-        await event.client.send_message(BOTLOG_CHATID, "#RESTART \n" "Bot Restarted")
+        await event.client.send_message(BOTLOG_CHATID, "#RESTART \nBot Restarted")
     sandy = await edit_or_reply(
         event,
         "Restarted. `.ping` me or `.help` to check if I am online, actually it takes 1-2 min for restarting",
@@ -71,7 +62,7 @@ async def _(event):
 async def _(event):
     "Shutdowns the bot"
     if BOTLOG:
-        await event.client.send_message(BOTLOG_CHATID, "#SHUTDOWN \n" "Bot shut down")
+        await event.client.send_message(BOTLOG_CHATID, "#SHUTDOWN \nBot shut down")
     await edit_or_reply(event, "`Turning off bot now ...Manually turn me on later`")
     if HEROKU_APP is not None:
         HEROKU_APP.process_formation()["worker"].scale(0)

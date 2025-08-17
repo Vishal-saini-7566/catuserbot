@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import contextlib
 import html
 import os
@@ -160,17 +151,17 @@ async def user(event):
     caption = ""
     caption += textwrap.dedent(
         f"""
-    **Username:** [{user['username']}]({user['url']})
-    **Gender:** `{user['gender']}`
-    **MAL ID:** `{user['user_id']}`
+    **Username:** [{user["username"]}]({user["url"]})
+    **Gender:** `{user["gender"]}`
+    **MAL ID:** `{user["user_id"]}`
     **Birthday:** `{user_birthday_formatted}`
     **Joined:** `{user_joined_date_formatted}`
     **Last Online:** `{user_last_online_formatted}`
 
-    **Days wasted watching Anime:** `{user['anime_stats']['days_watched']}`
-    **No of completed Animes:** `{user['anime_stats']['completed']}`
-    **Total No of episodes Watched:** `{user['anime_stats']['episodes_watched']}`
-    **Days wasted reading Manga:** `{user['manga_stats']['days_read']}`
+    **Days wasted watching Anime:** `{user["anime_stats"]["days_watched"]}`
+    **No of completed Animes:** `{user["anime_stats"]["completed"]}`
+    **Total No of episodes Watched:** `{user["anime_stats"]["episodes_watched"]}`
+    **Days wasted reading Manga:** `{user["manga_stats"]["days_read"]}`
     """
     )
 
@@ -494,7 +485,7 @@ async def get_anime(event):
             msg += f"{i}. {an}\n"
         return await edit_or_reply(event, msg)
     msg = ""
-    msg += f"**Fillers for anime** `{list(result.keys())[anime-1]}`**"
+    msg += f"**Fillers for anime** `{list(result.keys())[anime - 1]}`**"
     msg += "\n\n• Manga Canon episodes:**`\n"
     msg += str(response.get("total_ep"))
     msg += "\n\n`**• Mixed/Canon fillers:**`\n"
@@ -588,17 +579,17 @@ async def anilist_character(event):  # sourcery no-metrics
     dob = "-".join(dateofbirth) if dateofbirth else "Unknown"
     caption = textwrap.dedent(
         f"""
-        🆎 <b> Name</b>: <i>{result['name']['full']}</i>
-        🆔 <b>AL ID</b>: <i>{result['id']}</i>
-        👫 <b>Gender</b>: <i>{result['gender'].lower()}</i>
-        🔢 <b>Age</b>: <i>{result['age']}</i>
+        🆎 <b> Name</b>: <i>{result["name"]["full"]}</i>
+        🆔 <b>AL ID</b>: <i>{result["id"]}</i>
+        👫 <b>Gender</b>: <i>{result["gender"].lower()}</i>
+        🔢 <b>Age</b>: <i>{result["age"]}</i>
         🎂 <b>Date of Birth</b>: {dob}
-        📃 <b>Blood Type</b>: <i>{result['bloodType']}</i>
-        📊 <b>Liked By</b>: <i>{result['favourites']}</i>
+        📃 <b>Blood Type</b>: <i>{result["bloodType"]}</i>
+        📊 <b>Liked By</b>: <i>{result["favourites"]}</i>
         """
     )
-    html_ = f"""<a href="{result['siteUrl']}">"""
-    html_ += f"""<img src="{result['image']['large']}"/></a>"""
+    html_ = f"""<a href="{result["siteUrl"]}">"""
+    html_ += f"""<img src="{result["image"]["large"]}"/></a>"""
     html_ += "<br>"
     html_ += f"<h3>{result['name']['full']}</h3>"
     html_ += f"<em>{result['name']['native']}</em><br>"
@@ -792,25 +783,25 @@ async def whatanime(event):
         if not js0:
             return await output[0].edit("`No results found.`")
         js0 = js0[0]
-        text = f'**Titile Romaji : **`{html.escape(js0["anilist"]["title"]["romaji"])}`\n'
-        text += f'**Titile Native :** `{html.escape(js0["anilist"]["title"]["native"])}`\n'
-        text += f'**Titile English :** `{html.escape(js0["anilist"]["title"]["english"])}`\n' if js0["anilist"]["title"]["english"] is not None else ""
-        text += f'**Is Adult :** __{js0["anilist"]["isAdult"]}__\n'
+        text = f"**Titile Romaji : **`{html.escape(js0['anilist']['title']['romaji'])}`\n"
+        text += f"**Titile Native :** `{html.escape(js0['anilist']['title']['native'])}`\n"
+        text += f"**Titile English :** `{html.escape(js0['anilist']['title']['english'])}`\n" if js0["anilist"]["title"]["english"] is not None else ""
+        text += f"**Is Adult :** __{js0['anilist']['isAdult']}__\n"
         #         text += f'**File name :** __{js0["filename"]}__\n'
-        text += f'**Episode :** __{html.escape(str(js0["episode"]))}__\n'
-        text += f'**From :** __{readable_time(js0["from"])}__\n'
-        text += f'**To :** __{readable_time(js0["to"])}__\n'
+        text += f"**Episode :** __{html.escape(str(js0['episode']))}__\n"
+        text += f"**From :** __{readable_time(js0['from'])}__\n"
+        text += f"**To :** __{readable_time(js0['to'])}__\n"
         percent = round(js0["similarity"] * 100, 2)
         text += f"**Similarity :** __{percent}%__\n"
         result = f"**Searched {framecount} frames and found this as best result :**\n\n" + text
         msg = await output[0].edit(result)
         try:
             await msg.reply(
-                f'{readable_time(js0["from"])} - {readable_time(js0["to"])}',
+                f"{readable_time(js0['from'])} - {readable_time(js0['to'])}",
                 file=js0["video"],
             )
         except Exception:
             await msg.reply(
-                f'{readable_time(js0["from"])} - {readable_time(js0["to"])}',
+                f"{readable_time(js0['from'])} - {readable_time(js0['to'])}",
                 file=js0["image"],
             )

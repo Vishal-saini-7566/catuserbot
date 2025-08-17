@@ -1,11 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Special credits: @aragon12 and @zakaryan2004.
 
 import io
@@ -128,8 +120,8 @@ async def get_weather(event):  # sourcery no-metrics
         + f"🧧**Pressure** `{pressure} hPa`\n"
         + f"🌬**Wind:** `{kmph[0]} kmh | {mph[0]} mph, {findir}`\n"
         + f"⛈**Cloud:** `{cloud} %`\n"
-        + f"🌄**Sunrise:** `{sun(sunrise,ctimezone)}`\n"
-        + f"🌅**Sunset:** `{sun(sunset,ctimezone)}`\n\n\n"
+        + f"🌄**Sunrise:** `{sun(sunrise, ctimezone)}`\n"
+        + f"🌅**Sunset:** `{sun(sunset, ctimezone)}`\n\n\n"
         + f"**{desc}**\n"
         + f"`{cityname}, {fullc_n}`\n"
         + f"`{time}`\n",

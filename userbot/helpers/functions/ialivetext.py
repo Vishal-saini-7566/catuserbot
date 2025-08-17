@@ -22,7 +22,7 @@ def check_data_base_heal_th():
     # https://stackoverflow.com/a/41961968
     is_database_working = False
     output = "No Database is set"
-    if not Config.DB_URI:
+    if not Config.DATABASE_URL:
         return is_database_working, output
     from ...sql_helper import SESSION
 
@@ -45,7 +45,7 @@ async def catalive(StartTime):
     heroku_api = "https://api.heroku.com"
     uptime = await get_readable_time((time.time() - StartTime))
     try:
-        useragent = "Mozilla/5.0 (Linux; Android 10; SM-G975F) " "AppleWebKit/537.36 (KHTML, like Gecko) " "Chrome/80.0.3987.149 Mobile Safari/537.36"
+        useragent = "Mozilla/5.0 (Linux; Android 10; SM-G975F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Mobile Safari/537.36"
         user_id = Heroku.account().id
         headers = {
             "User-Agent": useragent,

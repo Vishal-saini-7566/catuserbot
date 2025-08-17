@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import asyncio
 from datetime import datetime
 
@@ -126,7 +117,7 @@ async def ban_starters(event):
         return await edit_delete(event, "`No one started your bot yet.`")
     msg = "**The list of users who started your bot are :\n\n**"
     for user in ulist:
-        msg += f"• 👤 {_format.mentionuser(user.first_name , user.user_id)}\n**ID:** `{user.user_id}`\n**UserName:** @{user.username}\n**Date: **__{user.date}__\n\n"
+        msg += f"• 👤 {_format.mentionuser(user.first_name, user.user_id)}\n**ID:** `{user.user_id}`\n**UserName:** @{user.username}\n**Date: **__{user.date}__\n\n"
     await edit_or_reply(event, msg)
 
 
@@ -173,7 +164,7 @@ async def unban_botpms(event):
         return await event.client.send_message(
             event.chat_id,
             f"#User_Not_Banned\
-            \n👤 {_format.mentionuser(user.first_name , user.id)} doesn't exist in my Banned Users list.",
+            \n👤 {_format.mentionuser(user.first_name, user.id)} doesn't exist in my Banned Users list.",
         )
     msg = await unban_user_from_bot(user, reason, reply_to)
     await event.reply(msg)
@@ -195,7 +186,7 @@ async def baned_list(event):
         return await edit_delete(event, "`No one is banned in your bot yet.`")
     msg = "**The list of users who are banned in your bot are :\n\n**"
     for user in ulist:
-        msg += f"• 👤 {_format.mentionuser(user.first_name , user.chat_id)}\n**ID:** `{user.chat_id}`\n**UserName:** @{user.username}\n**Date: **__{user.date}__\n**Reason:** __{user.reason}__\n\n"
+        msg += f"• 👤 {_format.mentionuser(user.first_name, user.chat_id)}\n**ID:** `{user.chat_id}`\n**UserName:** @{user.username}\n**Date: **__{user.date}__\n**Reason:** __{user.reason}__\n\n"
     await edit_or_reply(event, msg)
 
 

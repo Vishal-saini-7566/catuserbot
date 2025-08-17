@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import base64
 import contextlib
 
@@ -861,7 +852,7 @@ async def _(event):  # sourcery no-metrics
         pin = "✅" if result.participant.admin_rights.pin_messages else "❌"
         add_a = "✅" if result.participant.admin_rights.add_admins else "❌"
         call = "✅" if result.participant.admin_rights.manage_call else "❌"
-        output += f"**Admin rights of **{_format.mentionuser(user.first_name ,user.id)} **in {get_display_name(await event.get_chat())} chat are **\n"
+        output += f"**Admin rights of **{_format.mentionuser(user.first_name, user.id)} **in {get_display_name(await event.get_chat())} chat are **\n"
         output += f"__Change info :__ {c_info}\n"
         output += f"__Delete messages :__ {del_me}\n"
         output += f"__Ban users :__ {ban}\n"
@@ -895,7 +886,7 @@ async def _(event):  # sourcery no-metrics
             uadduser = "❌" if chat_per.invite_users else "✅"
             ucpin = "❌" if chat_per.pin_messages else "✅"
             uchangeinfo = "❌" if chat_per.change_info else "✅"
-        output += f"{_format.mentionuser(user.first_name ,user.id)} **permissions in {get_display_name(await event.get_chat())} chat are **\n"
+        output += f"{_format.mentionuser(user.first_name, user.id)} **permissions in {get_display_name(await event.get_chat())} chat are **\n"
         output += f"__Send Messages :__ {umsg}\n"
         output += f"__Send Media :__ {umedia}\n"
         output += f"__Send Stickers :__ {usticker}\n"

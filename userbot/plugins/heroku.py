@@ -1,11 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Special Credit : Adek Maulana.
 
 import math
@@ -94,11 +86,11 @@ async def variable(event):
             if variable in heroku_var:
                 return await edit_or_reply(
                     cat,
-                    "**ConfigVars**:" f"\n\n`{variable}` = `{heroku_var[variable]}`\n",
+                    f"**ConfigVars**:\n\n`{variable}` = `{heroku_var[variable]}`\n",
                 )
             await edit_or_reply(
                 cat,
-                "**ConfigVars**:" f"\n\n__Error:\n-> __`{variable}`__ don't exists__",
+                f"**ConfigVars**:\n\n__Error:\n-> __`{variable}`__ don't exists__",
             )
         except IndexError:
             configs = prettyjson(heroku_var.to_dict(), indent=2)
@@ -108,7 +100,7 @@ async def variable(event):
                 result = fp.read()
                 await edit_or_reply(
                     cat,
-                    "`[HEROKU]` ConfigVars:\n\n" "================================" f"\n```{result}```\n" "================================",
+                    f"`[HEROKU]` ConfigVars:\n\n================================\n```{result}```\n================================",
                 )
             os.remove("configs.json")
     elif cmd == "set":
@@ -153,7 +145,7 @@ async def dyno_usage(dyno):
     if not app:
         return await edit_delete(dyno, Heroku)
     dyno = await edit_or_reply(dyno, "`Processing...`")
-    useragent = "Mozilla/5.0 (Linux; Android 10; SM-G975F) " "AppleWebKit/537.36 (KHTML, like Gecko) " "Chrome/80.0.3987.149 Mobile Safari/537.36"
+    useragent = "Mozilla/5.0 (Linux; Android 10; SM-G975F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Mobile Safari/537.36"
     user_id = Heroku.account().id
     headers = {
         "User-Agent": useragent,
@@ -163,7 +155,7 @@ async def dyno_usage(dyno):
     path = f"/accounts/{user_id}/actions/get-quota"
     r = requests.get(heroku_api + path, headers=headers)
     if r.status_code != 200:
-        return await dyno.edit("`Error: something bad happened`\n\n" f">.`{r.reason}`\n")
+        return await dyno.edit(f"`Error: something bad happened`\n\n>.`{r.reason}`\n")
     result = r.json()
     quota = result["account_quota"]
     quota_used = result["quota_used"]

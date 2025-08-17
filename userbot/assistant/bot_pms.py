@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import re
 from collections import defaultdict
 from datetime import datetime
@@ -52,12 +43,12 @@ async def check_bot_started_users(user, event):
     check = get_starter_details(user.id)
     if check is None:
         start_date = str(datetime.now().strftime("%B %d, %Y"))
-        notification = f"👤 {_format.mentionuser(user.first_name , user.id)} has started me.\
+        notification = f"👤 {_format.mentionuser(user.first_name, user.id)} has started me.\
                 \n**ID: **`{user.id}`\
                 \n**Name: **{get_display_name(user)}"
     else:
         start_date = check.date
-        notification = f"👤 {_format.mentionuser(user.first_name , user.id)} has restarted me.\
+        notification = f"👤 {_format.mentionuser(user.first_name, user.id)} has restarted me.\
                 \n**ID: **`{user.id}`\
                 \n**Name: **{get_display_name(user)}"
     try:
@@ -221,7 +212,7 @@ async def bot_pms_edit(event):  # sourcery no-metrics
         ):
             await event.client.send_message(
                 Config.OWNER_ID,
-                f"⬆️ **This message was edited by the user** {_format.mentionuser(get_display_name(chat) , chat.id)} as :",
+                f"⬆️ **This message was edited by the user** {_format.mentionuser(get_display_name(chat), chat.id)} as :",
                 reply_to=reply_msg,
             )
             msg = await event.forward_to(Config.OWNER_ID)
@@ -289,7 +280,7 @@ async def handler(event):
                         return
                     await event.client.send_message(
                         Config.OWNER_ID,
-                        f"⬆️ **This message was deleted by the user** {_format.mentionuser(user_name , user_id)}.",
+                        f"⬆️ **This message was deleted by the user** {_format.mentionuser(user_name, user_id)}.",
                         reply_to=reply_msg,
                     )
             except Exception as e:
@@ -315,7 +306,7 @@ async def bot_uninfo(event):
         break
     if user_id is None:
         return await info_msg.edit("**ERROR:** \n`Sorry !, Can't Find this user in my database :(`")
-    uinfo = f"This message was sent by 👤 {_format.mentionuser(user_name , user_id)}\
+    uinfo = f"This message was sent by 👤 {_format.mentionuser(user_name, user_id)}\
             \n**First Name:** {user_name}\
             \n**User ID:** `{user_id}`"
     await info_msg.edit(uinfo)
@@ -364,7 +355,7 @@ async def send_flood_alert(user_) -> None:  # sourcery skip: low-code-quality
     if found:
         if flood_count >= FloodConfig.AUTOBAN:
             if user_.id in Config.SUDO_USERS:
-                sudo_spam = f"**Sudo User** {_format.mentionuser(user_.first_name , user_.id)}:\n  ID: {user_.id}\n\n" "Is Flooding your bot !, Check `.help delsudo` to remove the user from Sudo."
+                sudo_spam = f"**Sudo User** {_format.mentionuser(user_.first_name, user_.id)}:\n  ID: {user_.id}\n\nIs Flooding your bot !, Check `.help delsudo` to remove the user from Sudo."
                 if BOTLOG:
                     await catub.tgbot.send_message(BOTLOG_CHATID, sudo_spam)
             else:

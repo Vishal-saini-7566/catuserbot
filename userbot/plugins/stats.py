@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import asyncio
 import contextlib
 import time
@@ -139,7 +130,7 @@ async def stats(event):  # sourcery no-metrics # sourcery skip: low-code-quality
     if BOTLOG:
         await event.client.send_message(
             BOTLOG_CHATID,
-            "#ADMIN_LIST\n" f"Admin groups list has been succesfully updated on {date}. If you want to update it again, do  `.stat` or `.adminlist`",
+            f"#ADMIN_LIST\nAdmin groups list has been succesfully updated on {date}. If you want to update it again, do  `.stat` or `.adminlist`",
         )
 
 
@@ -208,7 +199,7 @@ async def full_stats(event):  # sourcery no-metrics # sourcery skip: low-code-qu
     if output:
         message.append(output)
     count = len(message)
-    message[count - 1] = f"{message[count-1]}\n<b>Time Taken : </b> {stop_time:.02f}s"
+    message[count - 1] = f"{message[count - 1]}\n<b>Time Taken : </b> {stop_time:.02f}s"
     await catevent.edit(message[0], parse_mode="html")
     reply_to_msg = event.id
     if count > 1:

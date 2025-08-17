@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import asyncio
 import contextlib
 from datetime import datetime
@@ -248,7 +239,7 @@ async def startgmute(event):
     if is_muted(userid, "gmute"):
         return await edit_or_reply(
             event,
-            f"{_format.mentionuser(user.first_name ,user.id)} ` is already gmuted`",
+            f"{_format.mentionuser(user.first_name, user.id)} ` is already gmuted`",
         )
     try:
         mute(userid, "gmute")
@@ -258,24 +249,24 @@ async def startgmute(event):
         if reason:
             await edit_or_reply(
                 event,
-                f"{_format.mentionuser(user.first_name ,user.id)} `is Successfully gmuted`\n**Reason :** `{reason}`",
+                f"{_format.mentionuser(user.first_name, user.id)} `is Successfully gmuted`\n**Reason :** `{reason}`",
             )
         else:
             await edit_or_reply(
                 event,
-                f"{_format.mentionuser(user.first_name ,user.id)} `is Successfully gmuted`",
+                f"{_format.mentionuser(user.first_name, user.id)} `is Successfully gmuted`",
             )
     if BOTLOG:
         reply = await event.get_reply_message()
         if reason:
             await event.client.send_message(
                 BOTLOG_CHATID,
-                "#GMUTE\n" f"**User :** {_format.mentionuser(user.first_name ,user.id)} \n" f"**Reason :** `{reason}`",
+                f"#GMUTE\n**User :** {_format.mentionuser(user.first_name, user.id)} \n**Reason :** `{reason}`",
             )
         else:
             await event.client.send_message(
                 BOTLOG_CHATID,
-                "#GMUTE\n" f"**User :** {_format.mentionuser(user.first_name ,user.id)} \n",
+                f"#GMUTE\n**User :** {_format.mentionuser(user.first_name, user.id)} \n",
             )
         if reply:
             await reply.forward_to(BOTLOG_CHATID)
@@ -309,7 +300,7 @@ async def endgmute(event):
     except Exception:
         return await edit_or_reply(event, "`Sorry. I am unable to fetch the user`")
     if not is_muted(userid, "gmute"):
-        return await edit_or_reply(event, f"{_format.mentionuser(user.first_name ,user.id)} `is not gmuted`")
+        return await edit_or_reply(event, f"{_format.mentionuser(user.first_name, user.id)} `is not gmuted`")
     try:
         unmute(userid, "gmute")
     except Exception as e:
@@ -318,23 +309,23 @@ async def endgmute(event):
         if reason:
             await edit_or_reply(
                 event,
-                f"{_format.mentionuser(user.first_name ,user.id)} `is Successfully ungmuted`\n**Reason :** `{reason}`",
+                f"{_format.mentionuser(user.first_name, user.id)} `is Successfully ungmuted`\n**Reason :** `{reason}`",
             )
         else:
             await edit_or_reply(
                 event,
-                f"{_format.mentionuser(user.first_name ,user.id)} `is Successfully ungmuted`",
+                f"{_format.mentionuser(user.first_name, user.id)} `is Successfully ungmuted`",
             )
     if BOTLOG:
         if reason:
             await event.client.send_message(
                 BOTLOG_CHATID,
-                "#UNGMUTE\n" f"**User :** {_format.mentionuser(user.first_name ,user.id)} \n" f"**Reason :** `{reason}`",
+                f"#UNGMUTE\n**User :** {_format.mentionuser(user.first_name, user.id)} \n**Reason :** `{reason}`",
             )
         else:
             await event.client.send_message(
                 BOTLOG_CHATID,
-                "#UNGMUTE\n" f"**User :** {_format.mentionuser(user.first_name ,user.id)} \n",
+                f"#UNGMUTE\n**User :** {_format.mentionuser(user.first_name, user.id)} \n",
             )
 
 

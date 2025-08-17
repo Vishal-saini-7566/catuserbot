@@ -1,13 +1,5 @@
 """Module to display Currenty Playing Spotify Songs in your bio"""
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Special Credits:
 # [Poolitzer](https://t.me/poolitzer)  (for creating spotify bio plugin)
 #
@@ -177,7 +169,7 @@ async def spotify_setup(event):
         "-modify-private+user-follow-modify+user-read-private"
     )
     async with event.client.conversation(BOTLOG_CHATID) as conv:
-        msg = await conv.send_message("Go to the following link in " f"your browser: {authurl.format(SPOTIFY_CLIENT_ID)} and reply this msg with the Page Url you got after giving authencation.")
+        msg = await conv.send_message(f"Go to the following link in your browser: {authurl.format(SPOTIFY_CLIENT_ID)} and reply this msg with the Page Url you got after giving authencation.")
         res = conv.wait_event(events.NewMessage(outgoing=True, chats=BOTLOG_CHATID))
         res = await res
         await msg.edit("`Processing ...`")
@@ -262,25 +254,25 @@ if SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET:
                     to_insert["link"] = received["item"]["external_urls"]["spotify"]
                     to_insert["image"] = received["item"]["album"]["images"][1]["url"]
                     if save_spam("spotify", False):
-                        string = "**[INFO]**\n\nEverything returned back to normal, the previous spotify issue has been " "resolved."
+                        string = "**[INFO]**\n\nEverything returned back to normal, the previous spotify issue has been resolved."
                         await catub.send_message(BOTLOG_CHATID, string)
                 elif save_spam("spotify", True):
                     # currently item is not passed when the user plays a
                     # podcast
-                    string = f"**[INFO]**\n\nThe playback {received['currently_playing_type']}" " didn't gave me any additional information, so I skipped updating the bio."
+                    string = f"**[INFO]**\n\nThe playback {received['currently_playing_type']} didn't gave me any additional information, so I skipped updating the bio."
                     await catub.send_message(BOTLOG_CHATID, string)
             elif r.status_code == 429:
                 to_wait = r.headers["Retry-After"]
                 LOGS.error(f"Spotify, have to wait for {str(to_wait)}")
                 await catub.send_message(
                     BOTLOG_CHATID,
-                    "**[WARNING]**\n\nI caught a spotify api limit. I shall sleep for " f"{str(to_wait)} seconds until I refresh again",
+                    f"**[WARNING]**\n\nI caught a spotify api limit. I shall sleep for {str(to_wait)} seconds until I refresh again",
                 )
                 skip = True
                 await asyncio.sleep(int(to_wait))
             elif r.status_code == 204:
                 if save_spam("spotify", False):
-                    stringy = "**[INFO]**\n\nEverything returned back to normal, the previous spotify issue has been " "resolved."
+                    stringy = "**[INFO]**\n\nEverything returned back to normal, the previous spotify issue has been resolved."
                     await catub.send_message(BOTLOG_CHATID, stringy)
             elif r.status_code == 401:
                 data = {
@@ -309,11 +301,11 @@ if SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET:
                 skip = True
             elif r.status_code == 502:
                 if save_spam("spotify", True):
-                    string = "**[WARNING]**\n\nSpotify returned a Bad gateway, which means they have a problem on their " "servers. The bot will continue to run but may not update the bio for a short time."
+                    string = "**[WARNING]**\n\nSpotify returned a Bad gateway, which means they have a problem on their servers. The bot will continue to run but may not update the bio for a short time."
                     await catub.send_message(BOTLOG_CHATID, string)
             elif r.status_code == 503:
                 if save_spam("spotify", True):
-                    string = "**[WARNING]**\n\nSpotify said that the service is unavailable, which means they have a " "problem on their servers. The bot will continue to run but may not update the bio for a " "short time."
+                    string = "**[WARNING]**\n\nSpotify said that the service is unavailable, which means they have a problem on their servers. The bot will continue to run but may not update the bio for a short time."
                     await catub.send_message(BOTLOG_CHATID, string)
             elif r.status_code == 404:
                 if save_spam("spotify", True):
@@ -322,7 +314,7 @@ if SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET:
             else:
                 await catub.send_message(
                     BOTLOG_CHATID,
-                    "**[ERROR]**\n\nOK, so something went reeeally wrong with spotify. The bot " "was stopped.\nStatus code: " + str(r.status_code) + "\n\nText: " + r.text,
+                    "**[ERROR]**\n\nOK, so something went reeeally wrong with spotify. The bot was stopped.\nStatus code: " + str(r.status_code) + "\n\nText: " + r.text,
                 )
                 LOGS.error(f"Spotify, error {r.status_code}, text: {r.text}")
                 # stop the whole program since I dont know what happens here
@@ -376,7 +368,7 @@ if SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET:
                                 await catub(UpdateProfileRequest(about=new_bio))
                                 spotify_bio.lrt = time.time()
                                 if save_spam("telegram", False):
-                                    stringy = "**[INFO]**\n\nEverything returned back to normal, the previous telegram " "issue has been resolved."
+                                    stringy = "**[INFO]**\n\nEverything returned back to normal, the previous telegram issue has been resolved."
                                     await catub.send_message(BOTLOG_CHATID, stringy)
                             # this can happen if our LIMIT check failed because telegram counts emojis twice and python
                             # doesnt. Refer to the constants file to learn more
@@ -392,11 +384,11 @@ if SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET:
                     # if we dont have a bio, everything was too long, so we
                     # tell the user that
                     if not new_bio and save_spam("telegram", True):
-                        to_send = "**[INFO]**\n\nThe current track exceeded the character limit, so the bio wasn't " f"updated.\n\n Track: {title}\nInterpret: {interpret}"
+                        to_send = f"**[INFO]**\n\nThe current track exceeded the character limit, so the bio wasn't updated.\n\n Track: {title}\nInterpret: {interpret}"
                         await catub.send_message(BOTLOG_CHATID, to_send)
                 else:
                     if save_spam("telegram", False):
-                        stringy = "**[INFO]**\n\nEverything returned back to normal, the previous telegram issue has " "been resolved."
+                        stringy = "**[INFO]**\n\nEverything returned back to normal, the previous telegram issue has been resolved."
                         await catub.send_message(BOTLOG_CHATID, stringy)
                     old_bio = SP_DATABASE.return_bio()
                     # this means the bio is blank, so we save that as the new
@@ -410,7 +402,7 @@ if SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET:
                 LOGS.error(f"to wait for {str(to_wait)}")
                 await catub.send_message(
                     BOTLOG_CHATID,
-                    "**[WARNING]**\n\nI caught a telegram api limit. I shall sleep " f"{str(to_wait)} seconds until I refresh again",
+                    f"**[WARNING]**\n\nI caught a telegram api limit. I shall sleep {str(to_wait)} seconds until I refresh again",
                 )
                 skip = True
                 await asyncio.sleep(to_wait)
@@ -629,7 +621,7 @@ async def spotify_inline_article():
         else:
             media, tittle, dic, lyrics, symbol = await get_spotify(response)
             thumb = "https://github.com/TgCatUB/CatUserbot-Resources/raw/master/Resources/Inline/spotify_on.png"
-            query = f'**🎶 Track :- ** `{tittle}`\n**🎤 Artist :- ** `{dic["interpret"]}`'
+            query = f"**🎶 Track :- ** `{tittle}`\n**🎤 Artist :- ** `{dic['interpret']}`"
             buttons = [
                 (
                     Button.url("🎧 Spotify", dic["link"]),
@@ -693,11 +685,11 @@ async def spotify_info(event):
         dic["url"] = uinfo["external_urls"]["spotify"]
         dic["followers"] = uinfo["followers"]["total"]
         dic["country"] = uinfo["country"]
-        result = f'[\u2063]({dic["img"]})**Name :- [{dic["name"]}]({dic["url"]})\nCountry :-** `{dic["country"]}`\n**Followers :-** `{dic["followers"]}`\n**User Id :-** `{dic["id"]}`\n'
+        result = f"[\u2063]({dic['img']})**Name :- [{dic['name']}]({dic['url']})\nCountry :-** `{dic['country']}`\n**Followers :-** `{dic['followers']}`\n**User Id :-** `{dic['id']}`\n"
     if y.status_code == 200 and device["devices"]:
         for i in device["devices"]:
             if i["is_active"]:
-                result += f'**Device :-** `{i["name"]}` (__{i["type"]}__)\n'
+                result += f"**Device :-** `{i['name']}` (__{i['type']}__)\n"
     await edit_or_reply(event, result, link_preview=True)
 
 

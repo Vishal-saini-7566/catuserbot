@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import calendar
 import json
 import os
@@ -348,7 +339,7 @@ async def spy(event):
     language1 = f"<code>{lang1}</code>" if lang1 == native else f"<code>{lang1}</code> [<code>{native}</code>]"
 
     try:
-        lang2 = f', <code>{r["languages"][1]["name"]}</code>'
+        lang2 = f", <code>{r['languages'][1]['name']}</code>"
     except IndexError:
         lang2 = ""
 
@@ -457,7 +448,7 @@ async def _(event):
     year = data.get("year")
     month = data["month"].zfill(2)
     day = data["day"].zfill(2)
-    xkcd_link = f'https://xkcd.com/{data.get("num")}'
+    xkcd_link = f"https://xkcd.com/{data.get('num')}"
     safe_title = data.get("safe_title")
     data.get("transcript")
     alt = data.get("alt")

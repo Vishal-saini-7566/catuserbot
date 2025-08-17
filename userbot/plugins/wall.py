@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import os
 import random
 
@@ -45,7 +36,7 @@ async def noods(event):  # sourcery no-metrics  # sourcery skip: low-code-qualit
     if int(limit) > 10:
         return await edit_delete(event, "`Wallpaper search limit is 1-10`", 10)
     catevent = await edit_or_reply(event, "🔍 `Searching...`")
-    r = requests.get(f"https://wall.alphacoders.com/search.php?search={query.replace(' ','+')}")
+    r = requests.get(f"https://wall.alphacoders.com/search.php?search={query.replace(' ', '+')}")
     soup = BeautifulSoup(r.content, "lxml")
     walls = soup.find_all("img", class_="img-responsive")
     if not walls:

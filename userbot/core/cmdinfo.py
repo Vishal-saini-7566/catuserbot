@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 from typing import Dict, List, Union
 
 from urlextract import URLExtract
@@ -53,7 +44,7 @@ def _format_about(
         tmp_chelp += f"__{about['header'].title()}__"
         del about["header"]
     if "description" in about and isinstance(about["description"], str):
-        tmp_chelp += "\n\n✘  **Description :**\n" f"__{get_data(about , 'description')}__"
+        tmp_chelp += f"\n\n✘  **Description :**\n__{get_data(about, 'description')}__"
         del about["description"]
     if "flags" in about:
         tmp_chelp += "\n\n✘  **Available Flags :**"
@@ -96,20 +87,20 @@ def _format_about(
             tmp_chelp += f"\n    `{about['examples']}`"
         del about["examples"]
     if "others" in about:
-        tmp_chelp += f"\n\n✘  **Others :**\n__{get_data(about , 'others')}__"
+        tmp_chelp += f"\n\n✘  **Others :**\n__{get_data(about, 'others')}__"
         del about["others"]
     if about:
         for t_n, t_d in about.items():
             tmp_chelp += f"\n\n✘  **{t_n.title()} :**\n"
             if isinstance(t_d, dict):
                 for o_n, o_d in t_d.items():
-                    tmp_chelp += f"    ▫ `{o_n}` : __{get_data(t_d , o_n)}__\n"
+                    tmp_chelp += f"    ▫ `{o_n}` : __{get_data(t_d, o_n)}__\n"
             elif isinstance(t_d, list):
                 for _opt in t_d:
                     tmp_chelp += f"    `{_opt}` ,"
                 tmp_chelp += "\n"
             else:
-                tmp_chelp += f"__{get_data(about ,t_n)}__"
+                tmp_chelp += f"__{get_data(about, t_n)}__"
                 tmp_chelp += "\n"
     return tmp_chelp.replace("{tr}", Config.COMMAND_HAND_LER)
 

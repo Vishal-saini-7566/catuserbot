@@ -29,9 +29,11 @@ You can generate String several ways:
 **➦ Locally**
 
 {% code title="Run this inside catuserbot directory" overflow="wrap" %}
+
 ```batch
 pip3 install git+https://github.com/jisan09/Telethon && python3 stringsetup.py
 ```
+
 {% endcode %}
 
 #### **➦ Telegram Bot : **<mark style="color:blue;">**@CatSessionBot**</mark> in telegram: [**https://t.me/CatStringSessionBot**](https://t.me/CatStringSessionBot)
@@ -62,31 +64,37 @@ The bot will send token after that.
 
 </details>
 
-### 〣 `DB_URI`
+### 〣 `DATABASE_URL`
 
 {% tabs %}
 {% tab title="Local Database" %}
 {% code title="First install postgres" overflow="wrap" %}
+
 ```batch
 sudo apt install postgresql postgresql-contrib
 ```
+
 {% endcode %}
 
 {% code title="Then run this in terminal" overflow="wrap" %}
+
 ```batch
 sudo su - postgres bash -c "psql -c \"ALTER USER postgres WITH PASSWORD 'your_password';\" && createdb catuserbot -O postgres"
 ```
+
 {% endcode %}
 
-{% code title="Your DB_URI will be" overflow="wrap" %}
+{% code title="Your DATABASE_URL will be" overflow="wrap" %}
+
 ```batch
 postgresql://postgres:your_password@localhost:5432/catuserbot
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Elephant Sql" %}
-**Visit** [**https://www.elephantsql.com/**](https://www.elephantsql.com/) **and get your DB\_URI**
+**Visit** [**https://www.elephantsql.com/**](https://www.elephantsql.com/) **and get your DATABASE_URL**
 
 {% embed url="https://youtu.be/zlPCUzocwHw" %}
 Elephant SQL
@@ -122,7 +130,7 @@ A boolean variable \[ <mark style="color:green;">True</mark> / <mark style="colo
 
 ### 〣 `VC_SESSION`
 
-A string variable that contains the session string for the userbot's voice chat mode. This used for playing music in VC using different account. Make using [<mark style="color:blue;">this tutorial</mark>](config-vars.md#string\_session) .
+A string variable that contains the session string for the userbot's voice chat mode. This used for playing music in VC using different account. Make using [<mark style="color:blue;">this tutorial</mark>](config-vars.md#string_session) .
 
 ## ≡ Google Related Variables
 
@@ -252,7 +260,7 @@ Refer [**Github tutorial** ](../../tutorials/github-commit.md)to get the value.
 
 ### 〣 `GIT_REPO_NAME`
 
-A string value that represents the name of a GitHub repository. This value is used by the Python program to identify the repository that it will work with. To obtain this value, you need to specify the name of the repository as an environment variable named GIT\_REPO\_NAME.
+A string value that represents the name of a GitHub repository. This value is used by the Python program to identify the repository that it will work with. To obtain this value, you need to specify the name of the repository as an environment variable named GIT_REPO_NAME.
 
 ### 〣 `ANTISPAMBOT_BAN`
 
@@ -276,7 +284,7 @@ A string value that represents the two-step verification code required for acces
 
 ### 〣 `TZ_NUMBER`
 
-An integer value that represents the number of hours offset from UTC. This variable is used by the Python program to set the timezone of the system clock. The default value is 1, but you can set it to a different value by specifying an environment variable named TZ\_NUMBER.
+An integer value that represents the number of hours offset from UTC. This variable is used by the Python program to set the timezone of the system clock. The default value is 1, but you can set it to a different value by specifying an environment variable named TZ_NUMBER.
 
 ### 〣 `WATCH_COUNTRY`
 
@@ -286,7 +294,7 @@ A string value that represents the country for the JustWatch plugin. This value 
 
 ### 〣 `DEEP_AI`
 
-A string value that represents an API key for the DeepAI service. This key is used to authenticate the Python program with the DeepAI service so that it can perform actions like detecting NSFW text or images. To obtain this value, you need to sign up for a DeepAI account and store your API key as an environment variable named DEEP\_AI.
+A string value that represents an API key for the DeepAI service. This key is used to authenticate the Python program with the DeepAI service so that it can perform actions like detecting NSFW text or images. To obtain this value, you need to sign up for a DeepAI account and store your API key as an environment variable named DEEP_AI.
 
 ### 〣 `CURRENCY_API`
 
@@ -306,7 +314,7 @@ A string value that represents the API key for the OpenAI API. This value is use
 
 ### 〣 `OPEN_WEATHER_MAP_APPID`
 
-A string value that represents the APPID for the OpenWeatherMap API. This API can be used to retrieve weather information for a location. The APPID can be obtained for free from the OpenWeatherMap website. Get your api from [openweathermap](https://home.openweathermap.org/api\_keys)
+A string value that represents the APPID for the OpenWeatherMap API. This API can be used to retrieve weather information for a location. The APPID can be obtained for free from the OpenWeatherMap website. Get your api from [openweathermap](https://home.openweathermap.org/api_keys)
 
 ### 〣 `REM_BG_API_KEY`
 

@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import glob
 import os
 import re
@@ -127,8 +118,8 @@ async def variable(event):
         for i in configs:
             if variable in i:
                 _, val = i.split("= ")
-                return await edit_or_reply(cat, "**ConfigVars**:" f"\n\n`{variable}` = `{val}`")
-        await edit_or_reply(cat, "**ConfigVars**:" f"\n\n__Error:\n-> __`{variable}`__ doesn't exists__")
+                return await edit_or_reply(cat, f"**ConfigVars**:\n\n`{variable}` = `{val}`")
+        await edit_or_reply(cat, f"**ConfigVars**:\n\n__Error:\n-> __`{variable}`__ doesn't exists__")
 
     elif cmd == "set":
         cat = await edit_or_reply(event, "`Setting information...`")
@@ -168,7 +159,7 @@ async def variable(event):
         if not match:
             return await edit_or_reply(
                 cat,
-                "**ConfigVars**:" f"\n\n__Error:\n-> __`{variable}`__ doesn't exists__",
+                f"**ConfigVars**:\n\n__Error:\n-> __`{variable}`__ doesn't exists__",
             )
         await edit_or_reply(cat, f"`{variable}` **successfully deleted.**")
         logtext = f"#DELETED\n\n`{variable}`"

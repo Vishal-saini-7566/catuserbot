@@ -1,11 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Powered by speedtest.net
 
 from time import time
@@ -37,7 +29,7 @@ def convert_from_bytes(size):
         "header": "Botserver's speedtest by ookla.",
         "options": {
             "text": "will give output as text",
-            "image": ("Will give output as image this is default option if " "no input is given."),
+            "image": ("Will give output as image this is default option if no input is given."),
             "file": "will give output as png file.",
         },
         "usage": ["{tr}speedtest <option>", "{tr}speedtest"],

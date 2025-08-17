@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import base64
 import contextlib
 import re
@@ -69,7 +60,7 @@ class chromeDriver:
 
     @staticmethod
     def get_rayso(inputstr, file_name="Rayso.png", title="CatUB", theme="crimson", darkMode=True):
-        url = f'https://ray.so/#code={base64.b64encode(inputstr.encode()).decode().replace("+","-")}&title={title}&theme={theme}&padding=64&darkMode={darkMode}&language=python'
+        url = f"https://ray.so/#code={base64.b64encode(inputstr.encode()).decode().replace('+', '-')}&title={title}&theme={theme}&padding=64&darkMode={darkMode}&language=python"
         driver, error = chromeDriver.start_driver()
         if error:
             return None, error

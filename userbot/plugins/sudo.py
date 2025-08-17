@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import os
 from datetime import datetime
 
@@ -111,7 +102,7 @@ async def add_sudo_user(event):
     if replied_user.id in _sudousers_list():
         return await edit_delete(
             event,
-            f"{mentionuser(get_display_name(replied_user),replied_user.id)} __is already in your sudo list.__",
+            f"{mentionuser(get_display_name(replied_user), replied_user.id)} __is already in your sudo list.__",
         )
     date = str(datetime.now().strftime("%B %d, %Y"))
     userdata = {
@@ -127,7 +118,7 @@ async def add_sudo_user(event):
     sudousers[str(replied_user.id)] = userdata
     sql.del_collection("sudousers_list")
     sql.add_collection("sudousers_list", sudousers, {})
-    output = f"{mentionuser(userdata['chat_name'],userdata['chat_id'])} __is Added to your sudo users.__\n"
+    output = f"{mentionuser(userdata['chat_name'], userdata['chat_id'])} __is Added to your sudo users.__\n"
     output += "**Bot is reloading to apply the changes. Please wait for a minute**"
     msg = await edit_or_reply(event, output)
     await event.client.reload(msg)
@@ -153,12 +144,12 @@ async def _(event):
     if str(replied_user.id) not in sudousers:
         return await edit_delete(
             event,
-            f"{mentionuser(get_display_name(replied_user),replied_user.id)} __is not in your sudo__.",
+            f"{mentionuser(get_display_name(replied_user), replied_user.id)} __is not in your sudo__.",
         )
     del sudousers[str(replied_user.id)]
     sql.del_collection("sudousers_list")
     sql.add_collection("sudousers_list", sudousers, {})
-    output = f"{mentionuser(get_display_name(replied_user),replied_user.id)} __is removed from your sudo users.__\n"
+    output = f"{mentionuser(get_display_name(replied_user), replied_user.id)} __is removed from your sudo users.__\n"
     output += "**Bot is reloading to apply the changes. Please wait for a minute**"
     msg = await edit_or_reply(event, output)
     await event.client.reload(msg)
@@ -183,7 +174,7 @@ async def _(event):
         return await edit_delete(event, "__There are no sudo users for your Catuserbot.__")
     result = "**The list of sudo users for your Catuserbot are :**\n\n"
     for chat in sudochats:
-        result += f"☞ **Name:** {mentionuser(sudousers[str(chat)]['chat_name'],sudousers[str(chat)]['chat_id'])}\n"
+        result += f"☞ **Name:** {mentionuser(sudousers[str(chat)]['chat_name'], sudousers[str(chat)]['chat_id'])}\n"
         result += f"**Chat Id :** `{chat}`\n"
         username = f"@{sudousers[str(chat)]['chat_username']}" or "__None__"
         result += f"**Username :** {username}\n"

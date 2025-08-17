@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import asyncio
 import contextlib
 import os
@@ -45,7 +36,7 @@ IFFUCI_ACTIVE_BRANCH_NAME = "master"
 NO_HEROKU_APP_CFGD = "no heroku application found, but a key given? 😕 "
 HEROKU_GIT_REF_SPEC = "HEAD:refs/heads/master"
 RESTARTING_APP = "re-starting heroku application"
-IS_SELECTED_DIFFERENT_BRANCH = "looks like a custom branch {branch_name} " "is being used:\n" "in this case, Updater is unable to identify the branch to be updated." "please check out to an official branch, and re-start the updater."
+IS_SELECTED_DIFFERENT_BRANCH = "looks like a custom branch {branch_name} is being used:\nin this case, Updater is unable to identify the branch to be updated.please check out to an official branch, and re-start the updater."
 
 # -- Constants End -- #
 
@@ -100,7 +91,7 @@ async def update_bot(event, repo, ups_rem, ac_br):
     except GitCommandError:
         repo.git.reset("--hard", "FETCH_HEAD")
     await update_requirements()
-    sandy = await event.edit("`Successfully Updated!\n" "Bot is restarting... Wait for a minute!`")
+    sandy = await event.edit("`Successfully Updated!\nBot is restarting... Wait for a minute!`")
     if os.path.exists("config.py"):
         from userbot.plugins.vps import reload_codebase
 
@@ -114,7 +105,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
     heroku = heroku3.from_key(HEROKU_API_KEY)
     heroku_applications = heroku.apps()
     if HEROKU_APP_NAME is None:
-        await event.edit("`Please set up the` **HEROKU_APP_NAME** `Var`" " to be able to deploy your userbot...`")
+        await event.edit("`Please set up the` **HEROKU_APP_NAME** `Var` to be able to deploy your userbot...`")
         repo.__del__()
         return
     heroku_app = next(
@@ -123,7 +114,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
     )
 
     if heroku_app is None:
-        await event.edit(f"{txt}\n" "`Invalid Heroku credentials for deploying userbot dyno.`")
+        await event.edit(f"{txt}\n`Invalid Heroku credentials for deploying userbot dyno.`")
         return repo.__del__()
     sandy = await event.edit("`Userbot dyno build in progress, please wait until the process finishes it usually takes 4 to 5 minutes .`")
     try:
@@ -153,7 +144,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
         return repo.__del__()
     build_status = heroku_app.builds(order_by="created_at", sort="desc")[0]
     if build_status.status == "failed":
-        return await edit_delete(event, "`Build failed!\n" "Cancelled or there were some errors...`")
+        return await edit_delete(event, "`Build failed!\nCancelled or there were some errors...`")
     try:
         remote.push("master:main", force=True)
     except Exception as error:
@@ -214,7 +205,7 @@ async def upstream(event):
         repo.heads.master.checkout(True)
     ac_br = repo.active_branch.name
     if ac_br != UPSTREAM_REPO_BRANCH:
-        await event.edit("**[UPDATER]:**\n" f"`Looks like you are using your own custom branch ({ac_br}). " "in that case, Updater is unable to identify " "which branch is to be merged. " "please checkout to any official branch`")
+        await event.edit(f"**[UPDATER]:**\n`Looks like you are using your own custom branch ({ac_br}). in that case, Updater is unable to identify which branch is to be merged. please checkout to any official branch`")
         return repo.__del__()
     with contextlib.suppress(BaseException):
         repo.create_remote("upstream", off_repo)
@@ -223,7 +214,7 @@ async def upstream(event):
     changelog = await gen_chlog(repo, f"HEAD..upstream/{ac_br}")
     # Special case for deploy
     if changelog == "" and not force_update:
-        await event.edit("\n`CATUSERBOT is`  **up-to-date**  `with`  " f"**{UPSTREAM_REPO_BRANCH}**\n")
+        await event.edit(f"\n`CATUSERBOT is`  **up-to-date**  `with`  **{UPSTREAM_REPO_BRANCH}**\n")
         return repo.__del__()
     if conf == "" and not force_update:
         await print_changelogs(event, ac_br, changelog)

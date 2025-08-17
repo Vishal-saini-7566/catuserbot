@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import asyncio
 import io
 import math
@@ -109,7 +100,7 @@ async def _(event):  # sourcery no-metrics  # sourcery skip: low-code-quality
             dl.close()
         end = datetime.now()
         ms = (end - start).seconds
-        await mone.edit(f"**•  Downloaded in {ms} seconds.**\n**•  Downloaded to :- **  `{os.path.relpath(file_name,os.getcwd())}`\n   ")
+        await mone.edit(f"**•  Downloaded in {ms} seconds.**\n**•  Downloaded to :- **  `{os.path.relpath(file_name, os.getcwd())}`\n   ")
     elif input_str:
         start = datetime.now()
         if "|" in input_str:
@@ -157,7 +148,7 @@ async def _(event):  # sourcery no-metrics  # sourcery skip: low-code-quality
         end = datetime.now()
         ms = (end - start).seconds
         if downloader.isSuccessful():
-            await mone.edit(f"**•  Downloaded in {ms} seconds.**\n**•  Downloaded file location :- ** `{os.path.relpath(downloaded_file_name,os.getcwd())}`")
+            await mone.edit(f"**•  Downloaded in {ms} seconds.**\n**•  Downloaded file location :- ** `{os.path.relpath(downloaded_file_name, os.getcwd())}`")
         else:
             await mone.edit(f"Incorrect URL\n {input_str}")
     else:
@@ -245,4 +236,4 @@ async def _(event):  # sourcery no-metrics  # sourcery skip: low-code-quality
         dl.close()
     end = datetime.now()
     ms = (end - start).seconds
-    await mone.edit(f"**•  Downloaded in {ms} seconds.**\n**•  Downloaded to :- **  `{os.path.relpath(file_name,os.getcwd())}`\n   ")
+    await mone.edit(f"**•  Downloaded in {ms} seconds.**\n**•  Downloaded to :- **  `{os.path.relpath(file_name, os.getcwd())}`\n   ")

@@ -1,11 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Special credits: @spechide (ported from uniborg)
 
 import asyncio
@@ -74,7 +66,7 @@ async def convert_video(video_file, output_directory, crf, total_time, bot, mess
                 "".join([UN_FINISHED_PROGRESS_STR for _ in range(10 - math.floor(percentage / 10))]),
             )
 
-            stats = f"📦️ **Compressing CRF-{crf}**\n\n" f"⏰️ **ETA :** {ETA}\n\n" f"{progress_str}\n"
+            stats = f"📦️ **Compressing CRF-{crf}**\n\n⏰️ **ETA :** {ETA}\n\n{progress_str}\n"
             with contextlib.suppress(Exception):
                 await message.edit(text=stats)
     # Wait for the subprocess to finish
@@ -170,7 +162,7 @@ async def ffmpeg_compress(event):  # sourcery skip: low-code-quality
     new = await fileinfo(compress)
     osize = old["size"]
     nsize = new["size"]
-    cap = f"**Old Size:** `{humanbytes(osize)}`\n**New Size:** `{humanbytes(nsize)}`\n**Compressed:** `{int(100-(nsize/osize*100))}%`\n\n**Time Taken:-**\n**Compression : **`{time_formatter(cms)}`"
+    cap = f"**Old Size:** `{humanbytes(osize)}`\n**New Size:** `{humanbytes(nsize)}`\n**Compressed:** `{int(100 - (nsize / osize * 100))}%`\n\n**Time Taken:-**\n**Compression : **`{time_formatter(cms)}`"
     if cmd == "f":
         try:
             c_time = time.time()

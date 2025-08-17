@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import re
 from datetime import datetime
 from math import sqrt
@@ -485,10 +476,10 @@ async def grp_stat(event):  # sourcery skip: low-code-quality
         if check > limit:
             break
     string = (
-        f"<b>The top {check-1} active users of the previous {quantity} messages Who sent {msgfiltername[flag]} in group {grpcheck.title} are:</b>\
+        f"<b>The top {check - 1} active users of the previous {quantity} messages Who sent {msgfiltername[flag]} in group {grpcheck.title} are:</b>\
         \n\n{tempstring}\
         \n<b>Total {msgfiltername[flag]} type messages sent in last  {quantity} messages are {finalquantity}.</b>"
         if flag and flag != "b"
-        else f"<b>The top {check-1} active users of the previous {finalquantity} messages in group {grpcheck.title} are:</b>\n\n{tempstring}"
+        else f"<b>The top {check - 1} active users of the previous {finalquantity} messages in group {grpcheck.title} are:</b>\n\n{tempstring}"
     )
     await catevent.edit(string, parse_mode="html")

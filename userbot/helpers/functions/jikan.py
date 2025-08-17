@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import contextlib
 import json
 import re
@@ -394,25 +385,25 @@ async def anilist_user(input_str):
     user_data = result["data"]["User"]
     stats = textwrap.dedent(
         f"""
-**User name :** [{user_data['name']}]({user_data['siteUrl']})
-**Anilist ID :** `{user_data['id']}`
-**Joined anilist :**`{datetime.fromtimestamp(user_data['createdAt'])}`
-**Last Updated :**`{datetime.fromtimestamp(user_data['updatedAt'])}`
+**User name :** [{user_data["name"]}]({user_data["siteUrl"]})
+**Anilist ID :** `{user_data["id"]}`
+**Joined anilist :**`{datetime.fromtimestamp(user_data["createdAt"])}`
+**Last Updated :**`{datetime.fromtimestamp(user_data["updatedAt"])}`
 
 **✙  Anime Stats**
-• **Total Anime Watched :** `{user_data["statistics"]["anime"]['count']}`
-• **Total Episode Watched : **`{user_data["statistics"]["anime"]['episodesWatched']}`
-• **Total Time Spent : **`{readable_time(user_data["statistics"]["anime"]['minutesWatched']*60)}`
-• **Average Score :** `{user_data["statistics"]["anime"]['meanScore']}`
+• **Total Anime Watched :** `{user_data["statistics"]["anime"]["count"]}`
+• **Total Episode Watched : **`{user_data["statistics"]["anime"]["episodesWatched"]}`
+• **Total Time Spent : **`{readable_time(user_data["statistics"]["anime"]["minutesWatched"] * 60)}`
+• **Average Score :** `{user_data["statistics"]["anime"]["meanScore"]}`
 
 **✙  Manga Stats**
-• **Total Manga Read :** `{user_data["statistics"]["manga"]['count']}`
-• **Total Chapters Read :** `{user_data["statistics"]["manga"]['chaptersRead']}`
-• **Total Volumes Read : **`{user_data["statistics"]["manga"]['volumesRead']}`
-• **Average Score : **`{user_data["statistics"]["manga"]['meanScore']}`
+• **Total Manga Read :** `{user_data["statistics"]["manga"]["count"]}`
+• **Total Chapters Read :** `{user_data["statistics"]["manga"]["chaptersRead"]}`
+• **Total Volumes Read : **`{user_data["statistics"]["manga"]["volumesRead"]}`
+• **Average Score : **`{user_data["statistics"]["manga"]["meanScore"]}`
 """
     )
-    return stats, f'https://img.anili.st/user/{user_data["id"]}?a={time.time()}'
+    return stats, f"https://img.anili.st/user/{user_data['id']}?a={time.time()}"
 
 
 async def anime_json_synomsis(query, vars_):
@@ -473,7 +464,7 @@ async def get_anime_manga(search_str, search_type, _user_id):  # sourcery no-met
             return f"<b>Error</b> : <code>{result['errors'][0]['message']}</code>", None
         result = result["data"]["Media"]
         if result["trailer"]:
-            trailer = f'https://www.youtube.com/watch?v={result["trailer"]["id"]}'
+            trailer = f"https://www.youtube.com/watch?v={result['trailer']['id']}"
             TRAILER = f"<a href='{trailer}'>🎬 Trailer</a>"
         else:
             TRAILER = "🎬 <i>No Trailer Available</i>"
@@ -512,8 +503,8 @@ async def get_anime_manga(search_str, search_type, _user_id):  # sourcery no-met
         html_char = ""
         for character in anime_data["characters"]["nodes"]:
             html_ = "" + "<br>"
-            html_ += f"""<a href="{character['siteUrl']}">"""
-            html_ += f"""<img src="{character['image']['large']}"/></a>"""
+            html_ += f"""<a href="{character["siteUrl"]}">"""
+            html_ += f"""<img src="{character["image"]["large"]}"/></a>"""
             html_ += "<br>"
             html_ += f"<h3>{character['name']['full']}</h3>"
             html_ += f"<em>{character['name']['native']}</em><br>"
@@ -550,8 +541,8 @@ async def get_anime_manga(search_str, search_type, _user_id):  # sourcery no-met
         html_char = ""
         for character in anime_data["characters"]["nodes"]:
             html_ = "" + "<br>"
-            html_ += f"""<a href="{character['siteUrl']}">"""
-            html_ += f"""<img src="{character['image']['large']}"/></a>"""
+            html_ += f"""<a href="{character["siteUrl"]}">"""
+            html_ += f"""<img src="{character["image"]["large"]}"/></a>"""
             html_ += "<br>"
             html_ += f"<h3>{character['name']['full']}</h3>"
             html_ += f"<em>{character['name']['native']}</em><br>"
@@ -601,17 +592,17 @@ async def get_anime_manga(search_str, search_type, _user_id):  # sourcery no-met
                 endaired += "-" + str(result["endDate"]["day"])
         caption += textwrap.dedent(
             f"""
-        🆎 <b>Type</b>: <i>{result['type'].lower()}</i>
-        🆔 <b>MAL ID</b>: <i>{result['idMal']}</i>
-        🆔 <b>AL ID</b>: <i>{result['id']}</i>
-        📡 <b>Status</b>: <i>{result['status'].lower()}</i>
+        🆎 <b>Type</b>: <i>{result["type"].lower()}</i>
+        🆔 <b>MAL ID</b>: <i>{result["idMal"]}</i>
+        🆔 <b>AL ID</b>: <i>{result["id"]}</i>
+        📡 <b>Status</b>: <i>{result["status"].lower()}</i>
         ⏳ <b>Airing Started</b>: <i>{aired}</i>
         ⌛️ <b>Airing Ended</b>: <i>{endaired}</i>
-        🔢 <b>Episodes</b>: <i>{result['episodes']}</i>
-        💯 <b>Score</b>: <i>{result['averageScore']}</i>
-        📊 <b>Popularity</b>: <i>{result['popularity']}</i>
-        🌐 <b>Premiered</b>: <i>{result['season'].lower()}</i>
-        ⌛ <b>Duration</b>: <i>{result['duration']}</i>
+        🔢 <b>Episodes</b>: <i>{result["episodes"]}</i>
+        💯 <b>Score</b>: <i>{result["averageScore"]}</i>
+        📊 <b>Popularity</b>: <i>{result["popularity"]}</i>
+        🌐 <b>Premiered</b>: <i>{result["season"].lower()}</i>
+        ⌛ <b>Duration</b>: <i>{result["duration"]}</i>
         🎭 <b>Genres</b>: <i>{genre_string}</i>
         🎙️ <b>Studios</b>: <i>{studio_string}</i>
         """
@@ -624,14 +615,14 @@ async def get_anime_manga(search_str, search_type, _user_id):  # sourcery no-met
     elif search_type == "anime_manga":
         caption += textwrap.dedent(
             f"""
-        🆎 <b>Type</b>: <i>{result['type'].lower()}</i>
-        🆔 <b>MAL ID</b>: <i>{result['idMal']}</i>
-        🆔 <b>AL ID</b>: <i>{result['id']}</i>
-        📡 <b>Status</b>: <i>{result['status'].lower()}</i>
-        🔢 <b>Volumes</b>: <i>{result['volumes']}</i>
-        📃 <b>Chapters</b>: <i>{result['chapters']}</i>
-        💯 <b>Score</b>: <i>{result['averageScore']}</i>
-        📊 <b>Popularity</b>: <i>{result['popularity']}</i>
+        🆎 <b>Type</b>: <i>{result["type"].lower()}</i>
+        🆔 <b>MAL ID</b>: <i>{result["idMal"]}</i>
+        🆔 <b>AL ID</b>: <i>{result["id"]}</i>
+        📡 <b>Status</b>: <i>{result["status"].lower()}</i>
+        🔢 <b>Volumes</b>: <i>{result["volumes"]}</i>
+        📃 <b>Chapters</b>: <i>{result["chapters"]}</i>
+        💯 <b>Score</b>: <i>{result["averageScore"]}</i>
+        📊 <b>Popularity</b>: <i>{result["popularity"]}</i>
         🎭 <b>Genres</b>: <i>{genre_string}</i>
         """
         )

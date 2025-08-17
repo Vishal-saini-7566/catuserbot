@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 from asyncio import sleep
 
 from userbot import catub
@@ -32,7 +23,7 @@ async def googal(event):
         input_str = reply.text
     if not input_str:
         return await edit_delete(event, "**ಠ∀ಠ Give me text to search..**")
-    sample_url = f"http://google.com/search?q={input_str.replace(' ','+')}"
+    sample_url = f"http://google.com/search?q={input_str.replace(' ', '+')}"
     await edit_or_reply(event, "`Searching.....`")
     await sleep(2)
     await edit_or_reply(

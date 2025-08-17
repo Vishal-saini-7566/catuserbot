@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import json
 
 from bs4 import BeautifulSoup
@@ -39,7 +30,7 @@ async def kakashi(event):
     releases = "**Latest Magisk Releases**\n\n"
     for name, release_url in magisk_dict.items():
         data = get(release_url).json()
-        releases += f'{name}: [APK v{data["magisk"]["version"]}]({data["magisk"]["link"]}) | ' f'[Changelog]({data["magisk"]["note"]})\n'
+        releases += f"{name}: [APK v{data['magisk']['version']}]({data['magisk']['link']}) | [Changelog]({data['magisk']['note']})\n"
     await edit_or_reply(event, releases)
 
 
@@ -61,11 +52,11 @@ async def device_info(event):
             codename = textx.text
         else:
             return await edit_delete(event, "`Usage: .device <codename> / <model>`")
-    data = json.loads(get("https://raw.githubusercontent.com/androidtrackers/" "certified-android-devices/master/by_device.json").text)
+    data = json.loads(get("https://raw.githubusercontent.com/androidtrackers/certified-android-devices/master/by_device.json").text)
     if results := data.get(codename.lower()):
         reply = f"**Search results for `{codename.lower()}` :**\n\n"
         for item in results:
-            reply += f"**Brand**: `{item['brand']}`\n" f"**Name**: `{item['name']}`\n" f"**Model**: `{item['model']}`\n\n"
+            reply += f"**Brand**: `{item['brand']}`\n**Name**: `{item['name']}`\n**Model**: `{item['model']}`\n\n"
     else:
         reply = f"`Couldn't find info about {codename}!`\n"
     await edit_or_reply(event, reply)
@@ -93,7 +84,7 @@ async def codename_info(event):
     else:
         return await edit_delete(event, "`Usage: .codename <brand> <device>`")
 
-    data = json.loads(get("https://raw.githubusercontent.com/androidtrackers/" "certified-android-devices/master/by_brand.json").text)
+    data = json.loads(get("https://raw.githubusercontent.com/androidtrackers/certified-android-devices/master/by_brand.json").text)
     devices_lower = {k.lower(): v for k, v in data.items()}
     devices = devices_lower.get(brand)
     if not devices:
@@ -103,7 +94,7 @@ async def codename_info(event):
         if len(results) > 8:
             results = results[:8]
         for item in results:
-            reply += f"**Device**: `{item['device']}`\n" f"**Name**: `{item['name']}`\n" f"**Model**: `{item['model']}`\n\n"
+            reply += f"**Device**: `{item['device']}`\n**Name**: `{item['name']}`\n**Model**: `{item['model']}`\n\n"
     else:
         reply = f"`Couldn't find {device} codename!`\n"
     await edit_or_reply(event, reply)
@@ -138,5 +129,5 @@ async def twrp(event):
     dl_file = download.text
     size = page.find("span", {"class": "filesize"}).text
     date = page.find("em").text.strip()
-    reply = f"**Latest TWRP for {device}:**\n" f"[{dl_file}]({dl_link}) - __{size}__\n" f"**Updated:** __{date}__\n"
+    reply = f"**Latest TWRP for {device}:**\n[{dl_file}]({dl_link}) - __{size}__\n**Updated:** __{date}__\n"
     await edit_or_reply(event, reply)

@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 from datetime import datetime
 from math import floor
 
@@ -55,7 +46,7 @@ async def get_user_and_reason(event):
 # taken from https://github.com/code-rgb/USERGE-X/blob/f95766027ef95854d05e523b42cd158c2e8cdbd0/userge/plugins/bot/bot_forwards.py#L420
 def progress_str(total: int, current: int) -> str:
     percentage = current * 100 / total
-    prog_arg = "**Progress** : `{}%`\n" "```[{}{}]```"
+    prog_arg = "**Progress** : `{}%`\n```[{}{}]```"
     return prog_arg.format(
         percentage,
         "".join(Config.FINISHED_PROGRESS_STR for _ in range(floor(percentage / 5))),
@@ -72,7 +63,7 @@ async def ban_user_from_bot(user, reason, reply_to=None):
     banned_msg = f"**You have been Banned Forever from using this bot.\nReason** : {reason}"
     await catub.tgbot.send_message(user.id, banned_msg)
     info = f"**#Banned_Bot_PM_User**\
-            \n\n👤 {_format.mentionuser(get_display_name(user) , user.id)}\
+            \n\n👤 {_format.mentionuser(get_display_name(user), user.id)}\
             \n**First Name:** {user.first_name}\
             \n**User ID:** `{user.id}`\
             \n**Reason:** `{reason}`"
@@ -92,7 +83,7 @@ async def unban_user_from_bot(user, reason, reply_to=None):
         banned_msg += f"\n**Reason:** __{reason}__"
     await catub.tgbot.send_message(user.id, banned_msg)
     info = f"**#Unbanned_Bot_PM_User**\
-            \n\n👤 {_format.mentionuser(get_display_name(user) , user.id)}\
+            \n\n👤 {_format.mentionuser(get_display_name(user), user.id)}\
             \n**First Name:** {user.first_name}\
             \n**User ID:** `{user.id}`"
     if BOTLOG:

@@ -1,11 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Special credits:
 #
 # [Tulir Asokan]
@@ -126,7 +118,7 @@ class UploadSender:
 
     async def _next(self, data: bytes) -> None:
         self.request.bytes = data
-        log.debug(f"Sending file part {self.request.file_part}/{self.part_count}" f" with {len(data)} bytes")
+        log.debug(f"Sending file part {self.request.file_part}/{self.part_count} with {len(data)} bytes")
         await self.client._call(self.sender, self.request)
         self.request.file_part += self.stride
 
@@ -267,7 +259,7 @@ class ParallelTransferrer:
         connection_count = connection_count or self._get_connection_count(file_size)
         part_size = (part_size_kb or utils.get_appropriated_part_size(file_size)) * 1024
         part_count = math.ceil(file_size / part_size)
-        log.debug("Starting parallel download: " f"{connection_count} {part_size} {part_count} {file!s}")
+        log.debug(f"Starting parallel download: {connection_count} {part_size} {part_count} {file!s}")
         await self._init_download(connection_count, file, part_count, part_size)
 
         part = 0

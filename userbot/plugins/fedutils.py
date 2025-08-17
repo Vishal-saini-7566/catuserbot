@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import asyncio
 import contextlib
 
@@ -70,7 +61,7 @@ async def group_fban(event):
         fedids = feds[fedgroup]
     else:
         return await edit_delete(event, f"__There is no such '{fedgroup}' named fedgroup in your database.__")
-    catevent = await edit_or_reply(event, f"Fbanning {_format.mentionuser(user.first_name ,user.id)}..")
+    catevent = await edit_or_reply(event, f"Fbanning {_format.mentionuser(user.first_name, user.id)}..")
     fedchat = FBAN_GROUP_ID
     success = 0
     errors = []
@@ -100,7 +91,7 @@ async def group_fban(event):
                     errors.append(reply.text)
         except Exception as e:
             errors.append(str(e))
-    success_report = f"{_format.mentionuser(user.first_name ,user.id)} is succesfully banned in {success} feds of {total}\
+    success_report = f"{_format.mentionuser(user.first_name, user.id)} is succesfully banned in {success} feds of {total}\
         \n**Reason:** __{reason}__.\n"
     if errors != []:
         success_report += "\n**Error:**"
@@ -143,7 +134,7 @@ async def group_unfban(event):
         fedids = feds[fedgroup]
     else:
         return await edit_delete(event, f"__There is no such '{fedgroup}' named fedgroup in your database.__")
-    catevent = await edit_or_reply(event, f"Unfbanning {_format.mentionuser(user.first_name ,user.id)}..")
+    catevent = await edit_or_reply(event, f"Unfbanning {_format.mentionuser(user.first_name, user.id)}..")
     fedchat = FBAN_GROUP_ID
     success = 0
     errors = []
@@ -173,7 +164,7 @@ async def group_unfban(event):
                     errors.append(reply.text)
         except Exception as e:
             errors.append(str(e))
-    success_report = f"{_format.mentionuser(user.first_name ,user.id)} is succesfully unbanned in {success} feds of {total}\
+    success_report = f"{_format.mentionuser(user.first_name, user.id)} is succesfully unbanned in {success} feds of {total}\
         \n**Reason:** __{reason}__.\n"
     if errors != []:
         success_report += "\n**Error:**"
@@ -471,7 +462,7 @@ async def myfeds_fedinfo(event):
                 await event.client.send_file(
                     event.chat_id,
                     response,
-                    caption=f"List of feds in which {_format.mentionuser('I am' ,user.id)} admin are.",
+                    caption=f"List of feds in which {_format.mentionuser('I am', user.id)} admin are.",
                     reply_to=replyid,
                 )
                 await catevent.delete()
@@ -491,7 +482,7 @@ async def myfeds_fedinfo(event):
         "description": "If you haven't replied to any user or mentioned any user along with command then by default you will be input else mentioned user or replied user.",
         "usage": [
             "{tr}fstat list of all federations you are banned in.",
-            "{tr}fstat <fedid> shows you info of you in the given fed." "{tr}fstat <userid/username/reply> list of all federations he is banned in.",
+            "{tr}fstat <fedid> shows you info of you in the given fed.{tr}fstat <userid/username/reply> list of all federations he is banned in.",
             "{tr}fstat <userid/username/reply> <fedid> shows you info of the that user in the given fed.",
         ],
     },
@@ -518,9 +509,9 @@ async def fstat_rose(event):
                 return await edit_delete(catevent, f"__{response.text}__")
             if fedid == "":
                 response = await conv.get_edit()
-                result = f"**List of feds** {_format.mentionuser(user.first_name ,user.id)} **has been banned in are.**\n\n"
+                result = f"**List of feds** {_format.mentionuser(user.first_name, user.id)} **has been banned in are.**\n\n"
             else:
-                result = f"**Fban info about** {_format.mentionuser(user.first_name ,user.id)} **is**\n\n"
+                result = f"**Fban info about** {_format.mentionuser(user.first_name, user.id)} **is**\n\n"
             if "Looks like" in response.message:
                 await response.click(0)
                 response = await conv.get_response()
@@ -528,7 +519,7 @@ async def fstat_rose(event):
                 await event.client.send_file(
                     event.chat_id,
                     response,
-                    caption=f"List of feds {_format.mentionuser(user.first_name ,user.id)} has been banned in are.",
+                    caption=f"List of feds {_format.mentionuser(user.first_name, user.id)} has been banned in are.",
                     reply_to=replyid,
                 )
                 await catevent.delete()

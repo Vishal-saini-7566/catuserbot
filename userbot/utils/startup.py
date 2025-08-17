@@ -1,12 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
-
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
-
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
 import glob
 import os
 import sys
@@ -48,7 +39,7 @@ async def setup_bot():
         for option in config.dc_options:
             if option.ip_address == catub.session.server_address:
                 if catub.session.dc_id != option.id:
-                    LOGS.warning(f"Fixed DC ID in session from {catub.session.dc_id}" f" to {option.id}")
+                    LOGS.warning(f"Fixed DC ID in session from {catub.session.dc_id} to {option.id}")
                 catub.session.set_dc(option.id, option.ip_address, option.port)
                 catub.session.save()
                 break
@@ -56,9 +47,18 @@ async def setup_bot():
         Config.TG_BOT_USERNAME = f"@{bot_details.username}"
         # await catub.start(bot_token=Config.TG_BOT_USERNAME)
         catub.me = await catub.get_me()
+        if catub.me is None:
+            LOGS.error(
+                "catub.me is None. Make sure your STRING_SESSION is valid and the bot can log in.",
+            )
+            sys.exit()
         catub.uid = catub.tgbot.uid = utils.get_peer_id(catub.me)
         if Config.OWNER_ID == 0:
-            Config.OWNER_ID = utils.get_peer_id(catub.me)
+            if catub.me is not None:
+                Config.OWNER_ID = utils.get_peer_id(catub.me)
+            else:
+                LOGS.error("catub.me is None, cannot set OWNER_ID.")
+                sys.exit()
     except Exception as e:
         LOGS.error(f"STRING_SESSION - {e}")
         sys.exit()

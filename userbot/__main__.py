@@ -1,6 +1,7 @@
 import contextlib
 import os
 import sys
+import threading
 
 from flask import Flask
 
@@ -25,6 +26,8 @@ LOGS.info(userbot.__copyright__)
 LOGS.info(f"Licensed under the terms of the {userbot.__license__}")
 
 cmdhr = Config.COMMAND_HAND_LER
+
+# Create Flask app
 app = Flask(__name__)
 
 try:
@@ -34,6 +37,14 @@ try:
 except Exception as e:
     LOGS.error(f"{e}")
     sys.exit()
+
+
+def run_flask():
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
+
+threading.Thread(target=run_flask).start()
 
 
 async def startup_process():
@@ -76,13 +87,3 @@ if len(sys.argv) in {1, 3, 4}:
         catub.run_until_disconnected()
 else:
     catub.disconnect()
-
-
-@app.route("/")
-def index():
-    return "CatUserbot is running!"
-
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)

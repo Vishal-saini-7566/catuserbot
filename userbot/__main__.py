@@ -33,62 +33,112 @@ app = Flask(__name__)
 
 
 async def startup_process():
-    await verifyLoggerGroup()
-    await load_plugins("plugins")
-    await load_plugins("assistant")
-    LOGS.info("============================================================================")
-    LOGS.info("||               Yay your userbot is officially working.!!!")
-    LOGS.info(f"||   Congratulation, now type {cmdhr}alive to see message if catub is live")
-    LOGS.info("||   If you need assistance, head to https://t.me/catuserbot_support")
-    LOGS.info("============================================================================")
-    await verifyLoggerGroup()
-    await add_bot_to_logger_group(BOTLOG_CHATID)
-    if PM_LOGGER_GROUP_ID != -100:
-        await add_bot_to_logger_group(PM_LOGGER_GROUP_ID)
-    await startupmessage()
+    """Handle startup process with error handling"""
+    try:
+        await verifyLoggerGroup()
+        await load_plugins("plugins")
+        await load_plugins("assistant")
+
+        LOGS.info("=" * 76)
+        LOGS.info("||               Yay your userbot is officially working.!!!")
+        LOGS.info(f"||   Congratulation, now type {cmdhr}alive to see message if catub is live")
+        LOGS.info("||   If you need assistance, head to https://t.me/catuserbot_support")
+        LOGS.info("=" * 76)
+
+        await verifyLoggerGroup()
+        await add_bot_to_logger_group(BOTLOG_CHATID)
+
+        if PM_LOGGER_GROUP_ID != -100:
+            await add_bot_to_logger_group(PM_LOGGER_GROUP_ID)
+
+        await startupmessage()
+
+    except Exception as e:
+        LOGS.error(f"Error in startup process: {e}")
+        raise
 
 
 async def externalrepo():
-    string = "<b>Your external repo plugins have imported.<b>\n\n"
-    if Config.EXTERNAL_REPO:
-        data = await install_externalrepo(Config.EXTERNAL_REPO, Config.EXTERNAL_REPOBRANCH, "xtraplugins")
-        string += f"<b>➜ Repo:  </b><a href='{data[0]}'><b>{data[1]}</b></a>\n<b>     • Imported Plugins:</b>  <code>{data[2]}</code>\n<b>     • Failed to Import:</b>  <code>{', '.join(data[3])}</code>\n\n"
-    if Config.BADCAT:
-        data = await install_externalrepo(Config.BADCAT_REPO, Config.BADCAT_REPOBRANCH, "badcatext")
-        string += f"<b>➜ Repo:  </b><a href='{data[0]}'><b>{data[1]}</b></a>\n<b>     • Imported Plugins:</b>  <code>{data[2]}</code>\n<b>     • Failed to Import:</b>  <code>{', '.join(data[3])}</code>\n\n"
-    if Config.VCMODE:
-        data = await install_externalrepo(Config.VC_REPO, Config.VC_REPOBRANCH, "catvc")
-        string += f"<b>➜ Repo:  </b><a href='{data[0]}'><b>{data[1]}</b></a>\n<b>     • Imported Plugins:</b>  <code>{data[2]}</code>\n<b>     • Failed to Import:</b>  <code>{', '.join(data[3])}</code>\n\n"
-    if "Imported Plugins" in string:
-        await catub.tgbot.send_message(BOTLOG_CHATID, string, parse_mode="html")
+    """Handle external repository installation"""
+    try:
+        string = "<b>Your external repo plugins have imported.</b>\n\n"
+
+        if hasattr(Config, "EXTERNAL_REPO") and Config.EXTERNAL_REPO:
+            data = await install_externalrepo(Config.EXTERNAL_REPO, Config.EXTERNAL_REPOBRANCH, "xtraplugins")
+            string += f"<b>➜ Repo:</b> <a href='{data[0]}'><b>{data[1]}</b></a>\n"
+            string += f"<b>     • Imported Plugins:</b> <code>{data[2]}</code>\n"
+            string += f"<b>     • Failed to Import:</b> <code>{', '.join(data[3])}</code>\n\n"
+
+        if hasattr(Config, "BADCAT") and Config.BADCAT:
+            data = await install_externalrepo(Config.BADCAT_REPO, Config.BADCAT_REPOBRANCH, "badcatext")
+            string += f"<b>➜ Repo:</b> <a href='{data[0]}'><b>{data[1]}</b></a>\n"
+            string += f"<b>     • Imported Plugins:</b> <code>{data[2]}</code>\n"
+            string += f"<b>     • Failed to Import:</b> <code>{', '.join(data[3])}</code>\n\n"
+
+        if hasattr(Config, "VCMODE") and Config.VCMODE:
+            data = await install_externalrepo(Config.VC_REPO, Config.VC_REPOBRANCH, "catvc")
+            string += f"<b>➜ Repo:</b> <a href='{data[0]}'><b>{data[1]}</b></a>\n"
+            string += f"<b>     • Imported Plugins:</b> <code>{data[2]}</code>\n"
+            string += f"<b>     • Failed to Import:</b> <code>{', '.join(data[3])}</code>\n\n"
+
+        if "Imported Plugins" in string:
+            await catub.tgbot.send_message(BOTLOG_CHATID, string, parse_mode="html")
+
+    except Exception as e:
+        LOGS.error(f"Error in external repo installation: {e}")
 
 
 async def init_all():
-    await setup_bot()
-    await startup_process()
-    await externalrepo()
-    register_web_routes(app)
+    """Initialize all components"""
+    try:
+        await setup_bot()
+        await startup_process()
+        await externalrepo()
+        register_web_routes(app)
+    except Exception as e:
+        LOGS.error(f"Error in initialization: {e}")
+        raise
 
 
 def run_flask():
-    port = int(os.environ.get("PORT", "10000"))
-    app.run(host="0.0.0.0", port=port)
+    """Run Flask server"""
+    try:
+        port = int(os.environ.get("PORT", "10000"))
+        LOGS.info(f"Starting Flask server on port {port}")
+        app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
+    except Exception as e:
+        LOGS.error(f"Flask server error: {e}")
 
 
 async def main():
-    LOGS.info("Starting Userbot")
-    await init_all()
-    LOGS.info("TG Bot Startup Completed")
-    start_uptime_pinger()
+    """Main function"""
+    scheduler = None
+    try:
+        LOGS.info("Starting Userbot")
+        await init_all()
+        LOGS.info("TG Bot Startup Completed")
 
-    # Start Flask server in background
-    threading.Thread(target=run_flask, daemon=True).start()
+        # Start uptime pinger
+        scheduler = start_uptime_pinger()
 
-    # Keep bot running
-    await catub.run_until_disconnected()
+        # Start Flask server in background thread
+        flask_thread = threading.Thread(target=run_flask, daemon=True)
+        flask_thread.start()
+        LOGS.info("Flask server started in background")
+
+        # Keep bot running
+        await catub.run_until_disconnected()
+
+    except Exception as e:
+        LOGS.error(f"Error in main: {e}")
+        raise
+    finally:
+        # Cleanup
+        if scheduler:
+            scheduler.shutdown()
+        LOGS.info("Bot stopped.")
 
 
-# Python
 if __name__ == "__main__":
     import sys
 

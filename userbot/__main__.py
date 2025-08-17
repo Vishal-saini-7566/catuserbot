@@ -1,5 +1,8 @@
 import contextlib
+import os
 import sys
+
+from flask import Flask
 
 import userbot
 from userbot import BOTLOG_CHATID, PM_LOGGER_GROUP_ID
@@ -7,7 +10,14 @@ from userbot import BOTLOG_CHATID, PM_LOGGER_GROUP_ID
 from .Config import Config
 from .core.logger import logging
 from .core.session import catub
-from .utils import add_bot_to_logger_group, install_externalrepo, load_plugins, setup_bot, startupmessage, verifyLoggerGroup
+from .utils import (
+    add_bot_to_logger_group,
+    install_externalrepo,
+    load_plugins,
+    setup_bot,
+    startupmessage,
+    verifyLoggerGroup,
+)
 
 LOGS = logging.getLogger("CatUserbot")
 
@@ -15,6 +25,7 @@ LOGS.info(userbot.__copyright__)
 LOGS.info(f"Licensed under the terms of the {userbot.__license__}")
 
 cmdhr = Config.COMMAND_HAND_LER
+app = Flask(__name__)
 
 try:
     LOGS.info("Starting Userbot")
@@ -39,7 +50,6 @@ async def startup_process():
     if PM_LOGGER_GROUP_ID != -100:
         await add_bot_to_logger_group(PM_LOGGER_GROUP_ID)
     await startupmessage()
-    return
 
 
 async def externalrepo():
@@ -66,3 +76,13 @@ if len(sys.argv) in {1, 3, 4}:
         catub.run_until_disconnected()
 else:
     catub.disconnect()
+
+
+@app.route("/")
+def index():
+    return "CatUserbot is running!"
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)

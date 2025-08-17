@@ -409,8 +409,9 @@ async def inline_handler(event):
     string = query.lower()
     str_y = query.split(" ", 1)
     query_user_id = event.sender_id
+    LOGS.info(f"Inline query request from {query_user_id}: {query}")
 
-    if query_user_id != Config.OWNER_ID or query_user_id not in Config.SUDO_USERS:
+    if int(query_user_id) != int(Config.OWNER_ID) or query_user_id not in Config.SUDO_USERS:
         result = await deploy_article(event)
         await event.answer([result] if result else None)
         return

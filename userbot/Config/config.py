@@ -169,6 +169,8 @@ class Config(object):
     GOOGLE_CSE_ID = os.environ.get("GOOGLE_CSE_ID", "")
     # this is strictly for development purpose dont touch this value
     LOAD_ONLY = os.environ.get("LOAD_ONLY", [])
+    # project url
+    UPTIME_PING_URL = os.environ.get("UPTIME_PING_URL", "")
 
 
 class Production(Config):

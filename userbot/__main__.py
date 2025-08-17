@@ -6,6 +6,7 @@ from flask import Flask
 
 import userbot
 from userbot import BOTLOG_CHATID, PM_LOGGER_GROUP_ID
+from userbot.helpers.uptime_pinger import start_uptime_pinger
 
 from .Config import Config
 from .core.logger import logging
@@ -91,6 +92,7 @@ if __name__ == "__main__":
     try:
         loop = asyncio.get_event_loop()
         loop.run_until_complete(main())
+        start_uptime_pinger()
     except (KeyboardInterrupt, SystemExit):
         LOGS.info("Bot stopped.")
         sys.exit()

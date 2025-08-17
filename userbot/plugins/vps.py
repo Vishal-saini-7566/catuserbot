@@ -93,8 +93,6 @@ async def reload_codebase():
 )
 async def variable(event):
     "Manage most of ConfigVars setting, set new var, get current var, or delete var..."
-    if not os.path.exists(config):
-        return await edit_delete(event, "`There no Config file , You can't use this plugin.`")
     cmd = event.pattern_match.group(1)
     if cmd == "info":
         return await edit_delete(event, dBcof.vars_info(), 60)

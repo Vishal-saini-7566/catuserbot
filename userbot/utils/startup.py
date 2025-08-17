@@ -134,7 +134,7 @@ async def load_plugins(folder, extfolder=None):
     files.sort()
     success = 0
     failure = []
-    LOGS.info(f"plugins to be loaded {', '.join(files)}")
+
     for name in files:
         with open(name) as f:
             path1 = Path(f.name)
@@ -145,7 +145,8 @@ async def load_plugins(folder, extfolder=None):
 
             try:
                 if not conditionForLoadingPlugins:
-                    return
+                    LOGS.info(f"skipping {pluginname}")
+                    continue
 
                 flag = True
                 check = 0

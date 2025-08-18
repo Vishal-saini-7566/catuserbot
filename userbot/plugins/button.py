@@ -64,9 +64,9 @@ def inline_button_aricle(method):
         "options": "If you button to be in same row as other button then follow this <buttonurl:link:same> in 2nd button.",
         "usage": [
             "{tr}ibutton <text> [Name on button]<buttonurl:link you want to open>",
-            "{tr}ibutton <text> <media:media_path> [Name on button]<buttonurl:link you want to open>",
+            "{tr}ibutton <text> <media:public_media_url> [Name on button]<buttonurl:link you want to open>",
         ],
-        "examples": "{tr}ibutton test <media:downloads/thumb_image.jpg> [google]<buttonurl:https://www.google.com> [catuserbot]<buttonurl:https://t.me/catuserbot17:same> [support]<buttonurl:https://t.me/catuserbot_support>",
+        "examples": "{tr}ibutton test <media:https://github.com/TgCatUB/CatUserbot-Resources/raw/master/Resources/Inline/catlogo.png> [google]<buttonurl:https://www.google.com> [catuserbot]<buttonurl:https://t.me/catuserbot17:same> [support]<buttonurl:https://t.me/catuserbot_support>",
     },
 )
 async def _(event):

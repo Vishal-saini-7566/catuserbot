@@ -267,6 +267,7 @@ async def article_builder(event, method):
         from userbot.plugins.button import inline_button_aricle
 
         query, buttons, media = inline_button_aricle(method)
+    LOGS.info(f"building article | query={query} | buttons={buttons} | media={media}")
 
     return await build_article(
         event,

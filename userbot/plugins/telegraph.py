@@ -1,3 +1,4 @@
+import json
 import os
 import random
 import string
@@ -15,6 +16,14 @@ from ..core.logger import logging
 from ..core.managers import edit_delete, edit_or_reply
 from ..helpers.functions import delete_conv
 from . import BOTLOG, BOTLOG_CHATID, catub, reply_id
+
+
+def safe_upload_file(file):
+    resp = upload_file(file)
+    if isinstance(resp, str):
+        resp = json.loads(resp)
+    return resp
+
 
 LOGS = logging.getLogger(__name__)
 
@@ -73,7 +82,7 @@ async def _(event):
         if downloaded_file_name.endswith((".webp")):
             resize_image(downloaded_file_name)
         try:
-            media_urls = upload_file(downloaded_file_name)
+            media_urls = safe_upload_file(downloaded_file_name)
         except exceptions.TelegraphException as exc:
             await catevent.edit(f"**Error : **\n`{exc}`")
             os.remove(downloaded_file_name)

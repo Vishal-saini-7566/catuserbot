@@ -1,6 +1,3 @@
-# Special credits:
-# https://github.com/Total-Noob-69/X-tra-Telegram/blob/master/userbot/plugins/webupload.py
-
 import asyncio
 import json
 import os
@@ -11,6 +8,7 @@ import requests
 
 from userbot import catub
 from userbot.core.logger import logging
+from userbot.helpers.functions import upload_to_temp_web
 
 from ..Config import Config
 from ..core.managers import edit_or_reply
@@ -20,6 +18,34 @@ LOGS = logging.getLogger(__name__)
 
 
 link_regex = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)", re.DOTALL)
+
+
+@catub.cat_cmd(
+    pattern=r"tgu(?:\s|$)([\s\S]*)",
+    command=("tgu", plugin_category),
+    info={
+        "header": "To upload telegram media to temporary 0x0.st",
+        "description": "Will upload media to 0x0.st and shares you link so that you can share with friends.",
+        "usage": "{tr}tgu <reply to media or provide path of media>",
+    },
+)
+async def upload_oxo(event):
+    "to upload media to 0x0.st"
+    editor = await edit_or_reply(event, "Processing...")
+    input_str = event.pattern_match.group(1)
+    reply = await event.get_reply_message()
+    if input_str:
+        filepath = input_str
+    elif reply:
+        filepath = await event.client.download_media(reply.media, Config.TMP_DOWNLOAD_DIRECTORY)
+    else:
+        return await editor.edit("Reply to a media file or provide a directory to upload the file to 0x0.st")
+
+    link = await upload_to_temp_web(file_path=filepath)
+    if link:
+        await editor.edit(link, link_preview=False)
+    else:
+        await editor.edit("Failed to upload file.")
 
 
 @catub.cat_cmd(
@@ -93,7 +119,7 @@ async def labstack(event):
             "{tr}webupload --option",
             "{tr}webupload path --option",
         ],
-        "examples": "{tr}.webupload --fileio reply this to media file.",
+        "examples": "{tr}webupload --fileio reply this to media file.",
     },
 )
 async def _(event):

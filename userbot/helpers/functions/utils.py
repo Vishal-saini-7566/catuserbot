@@ -2,8 +2,24 @@ import re
 import time
 from datetime import datetime
 
+import requests
 from emoji import get_emoji_regexp
 from telethon.tl.types import Channel, PollAnswer
+
+
+async def upload_to_temp_web(file_path: str, secret: bool = True, expires: int | None = None) -> str:
+    url = "https://0x0.st"
+    headers = {"User-Agent": "MyUploader/1.0"}
+    data = {}
+    if secret:
+        data["secret"] = ""
+    if expires is not None:
+        data["expires"] = str(expires)
+    with open(file_path, "rb") as f:
+        resp = requests.post(url, headers=headers, files={"file": f}, data=data)
+    if resp.status_code == 200:
+        return resp.text.strip()
+    return None
 
 
 async def get_message_link(channelid, msgid):

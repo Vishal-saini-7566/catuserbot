@@ -17,7 +17,6 @@ import urllib.request
 import requests
 import ujson
 from PIL import Image, ImageEnhance, ImageFilter
-from telegraph import upload_file
 from telethon import Button, events
 from telethon.errors import AboutTooLongError, FloodWaitError
 from telethon.errors.rpcerrorlist import YouBlockedUserError
@@ -26,6 +25,7 @@ from telethon.tl.functions.contacts import UnblockRequest as unblock
 from telethon.tl.functions.users import GetFullUserRequest
 
 from userbot.core.logger import logging
+from userbot.helpers.functions import upload_to_temp_web
 
 from ..Config import Config
 from ..core.managers import edit_delete, edit_or_reply
@@ -596,10 +596,10 @@ async def get_spotify(response):
             dic["duration"],
         )
         lyrics, symbol = await telegraph_lyrics(tittle, dic["interpret"])
-        url = upload_file(thumb)
+        url = await upload_to_temp_web(thumb)
         if os.path.exists(thumb):
             os.remove(thumb)
-    return f"https://graph.org{url[0]}", tittle, dic, lyrics, symbol
+    return url, tittle, dic, lyrics, symbol
 
 
 async def spotify_inline_article():

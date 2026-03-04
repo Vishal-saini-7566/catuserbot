@@ -33,6 +33,30 @@ from . import mention
 
 plugin_category = "utils"
 
+ANIME_QUOTE = [
+    "✮ One’s act, one’s profit 🖤",
+    "✮ Ten men, ten colors 🖤",
+    "✮ Wake from death and return to life 🖤",
+    "✮ Evil cause, evil effect 🖤",
+    "✮ The weak are meat; the strong eat 🖤",
+    "✮ Drunken life, dreamy death 🖤",
+    "✮ One life, one encounter  🖤",
+    "✮ Different body, same mind 🖤",
+    "✮ Meeting person always separated 🖤",
+    "✮ Beautiful person, thin life 🖤",
+    "✮ Work of self, obtainment of self 🖤",
+    "✮ If you do not enter the tiger’s cave, you will not catch its cub  🖤",
+    "✮ Even monkeys fall from trees 🖤",
+    "✮ There are even bugs that eat knotweed 🖤",
+    "✮ Spilt water will not return to the tray 🖤",
+    "✮ Gold coins to a cat 🖤",
+    "✮ A frog in a well does not know the great sea 🖤",
+    "✮ One who chases after two hares won’t catch even one 🖤",
+    "✮ An apprentice near a temple will recite the scriptures untaught  🖤",
+    "✮ Fall down seven times, stand up eight 🖤",
+    "✮ Unless an idiot dies, he won’t be cured 🖤",
+    "✮ Give up on your dreams and die 🖤",
+]
 
 @catub.cat_cmd(
     pattern="alive$",
@@ -59,8 +83,8 @@ async def amireallyalive(event):
     end = datetime.now()
     ms = (end - start).microseconds / 1000
     _, check_sgnirts = check_data_base_heal_th()
-    EMOJI = gvarstatus("ALIVE_EMOJI") or "  ✥ "
-    ALIVE_TEXT = gvarstatus("ALIVE_TEXT") or "**✮ MY BOT IS RUNNING SUCCESSFULLY ✮**"
+    EMOJI = gvarstatus("ALIVE_EMOJI") or " ✧✧ "
+    ALIVE_TEXT = gvarstatus("ALIVE_TEXT") or f"{random.choice(ANIME_QUOTE)}"
     CAT_IMG = gvarstatus("ALIVE_PIC")
     caption = cat_caption.format(
         ALIVE_TEXT=ALIVE_TEXT,

@@ -16,7 +16,7 @@ from datetime import datetime
 from search_engine_parser import BingSearch, GoogleSearch, YahooSearch
 from search_engine_parser.core.exceptions import NoResultsOrTrafficError
 
-from userbot import BOTLOG, BOTLOG_CHATID, Convert, catub
+from userbot import BOTLOG, BOTLOG_CHATID, Convert, catub, Config
 
 from ..core.managers import edit_delete, edit_or_reply
 from ..helpers.functions import deEmojify, unsavegif
@@ -247,12 +247,19 @@ async def google_search(event):
             event, "__What should i search? Give search query plox.__"
         )
     input_str = deEmojify(input_str).strip()
-    if len(input_str) > 195 or len(input_str) < 1:
+    if len(input_str) > 150 or len(input_str) < 1:
         return await edit_delete(
             event,
-            "__Plox your search query exceeds 200 characters or you search query is empty.__",
+            "__Plox your search query exceeds 150 characters or your search query is empty.__",
         )
-    query = f"#12{input_str}"
-    results = await event.client.inline_query("@StickerizerBot", query)
+    
+    catevent = await edit_or_reply(event, "`Processing query...`")
+
+    # try:
+    query = f"google {input_str}"
+    results = await event.client.inline_query(Config.TG_BOT_USERNAME, query)
     await results[0].click(event.chat_id, reply_to=reply_to_id, hide_via=True)
+    await catevent.delete()
     await event.delete()
+    # except Exception as e:
+    #     await edit_delete(catevent, f"__Error sending inline result: {str(e)}__")

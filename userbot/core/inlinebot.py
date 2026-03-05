@@ -550,7 +550,6 @@ async def youtube_data_article(event, str_y):
 async def google_search_article(event, input_str):
     font_url = "https://github.com/TgCatUB/CatUserbot-Resources/raw/master/Resources/fonts/roboto_regular.ttf"
     image_url = "https://raw.githubusercontent.com/ZAR0X/CatUserbot-Resources/refs/heads/master/Resources/Inline/google.webp"
-    print("This worked 1")
     font_res = requests.get(font_url)
     font_res.raise_for_status()
     font_data = io.BytesIO(font_res.content)
@@ -592,7 +591,6 @@ async def google_search_article(event, input_str):
     y = box_y1 + (box_height - text_h) / 2
 
     draw.multiline_text((x, y), wrapped_text, font=font, fill="#3c4043", align="center")
-    print("This worked 2")
     out_buffer = io.BytesIO()
     out_buffer.name = "google_search.png"
     img.save(out_buffer, "PNG")
@@ -602,7 +600,6 @@ async def google_search_article(event, input_str):
     buttons = [Button.url("Google Search", search_query_url)]
     
     uploaded_file = await catub.tgbot.upload_file(out_buffer)
-    print("This worked 3")
     return event.builder.photo(
         file=uploaded_file,
         text="", # Ensuring only the image and button are sent

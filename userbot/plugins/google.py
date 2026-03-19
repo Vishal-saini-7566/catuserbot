@@ -237,7 +237,10 @@ async def google_search(event):
             event,
             "__Plox your search query exceeds 150 characters or your search query is empty.__",
         )
+    catevent = await edit_or_reply(event, "`Processing query...`")
+
     query = f"google {input_str}"
     results = await event.client.inline_query(Config.TG_BOT_USERNAME, query)
     await results[0].click(event.chat_id, reply_to=reply_to_id, hide_via=True)
+    await catevent.delete()
     await event.delete()
